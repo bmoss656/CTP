@@ -29,18 +29,18 @@ public class PlayerControl : MonoBehaviour
         Save();
     }
 
-    private void Awake()
-    {
-        if(control == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            control = this;
-        }
-        else if(control != this)
-        {
-            Destroy(gameObject);
-        }
-    }
+    //private void Awake()
+    //{
+    //    if(control == null)
+    //    {
+    //        DontDestroyOnLoad(gameObject);
+    //        control = this;
+    //    }
+    //    else if(control != this)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
     private void Start()
     {
 

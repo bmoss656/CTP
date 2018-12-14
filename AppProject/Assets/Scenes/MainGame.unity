@@ -112,7 +112,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 9aa11f8aac0ba194a89bce00c978bf42, type: 2}
 --- !u!1001 &227752947
 Prefab:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4579534815985696, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.6393
+      value: 5.89
       objectReference: {fileID: 0}
     - target: {fileID: 4579534815985696, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_LocalPosition.z
@@ -326,6 +326,11 @@ Prefab:
     - target: {fileID: 1607624451112796, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114060804120518286, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
@@ -458,6 +463,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1296101777 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1607624451112796, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+    type: 2}
+  m_PrefabInternal: {fileID: 486018824}
+--- !u!114 &1296101778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1296101777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c26fa3f5eff551f44947fde195f90800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!195 &1296101779
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1296101777}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.2
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1484251231
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,8 +518,8 @@ GameObject:
   m_Name: HouseTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1484251232
 BoxCollider:
@@ -537,8 +582,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1484251231}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 5.7, z: 15.3}
-  m_LocalScale: {x: 12.2270155, y: 12.2270155, z: 12.2270155}
+  m_LocalPosition: {x: -0.5, y: 6.7, z: 37.8}
+  m_LocalScale: {x: 13.946134, y: 13.946134, z: 13.946134}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -554,12 +599,12 @@ GameObject:
   - component: {fileID: 1666550469}
   - component: {fileID: 1666550468}
   - component: {fileID: 1666550467}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1666550467
 BoxCollider:
@@ -623,7 +668,7 @@ Transform:
   m_GameObject: {fileID: 1666550466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 3.53}
-  m_LocalScale: {x: 32.448486, y: 0.2623824, z: 38.374825}
+  m_LocalScale: {x: 91.58452, y: 0.2623824, z: 131.37476}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -699,7 +744,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1823157893}
   m_LocalRotation: {x: 0.12044378, y: -0, z: -0, w: 0.9927202}
-  m_LocalPosition: {x: 0, y: 6.55, z: -22.53}
+  m_LocalPosition: {x: -0, y: 13.698484, z: -26.588573}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

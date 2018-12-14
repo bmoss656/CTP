@@ -31,16 +31,44 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit hitInfo;
+        m_animator.SetBool("Grounded", m_isGrounded);
 
-            if(Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                myAgent.SetDestination(hitInfo.point);
+                Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                RaycastHit hitInfo;
+
+                if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                {
+                    myAgent.SetDestination(hitInfo.point);
+                }
             }
         }
+        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+
+        bool walk = Input.GetKey(KeyCode.LeftShift);
+
+        if (v < 0)
+        {
+            if (walk) { v *= m_backwardsWalkScale; }
+            else { v *= m_backwardRunScale; }
+        }
+        else if (walk)
+        {
+            v *= m_walkScale;
+        }
+
+        m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
+        m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
+
+        transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
+        transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
+
+        m_animator.SetFloat("MoveSpeed", m_currentV);
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -97,32 +125,7 @@ public class PlayerMovement : MonoBehaviour
         if (m_collisions.Count == 0) { m_isGrounded = false; }
     }
 
-    private void TankUpdate()
-    {
-        float v = Input.GetAxis("Vertical");
-        float h = Input.GetAxis("Horizontal");
 
-        bool walk = Input.GetKey(KeyCode.LeftShift);
-
-        if (v < 0)
-        {
-            if (walk) { v *= m_backwardsWalkScale; }
-            else { v *= m_backwardRunScale; }
-        }
-        else if (walk)
-        {
-            v *= m_walkScale;
-        }
-
-        m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
-        m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
-
-        transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
-        transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
-
-        m_animator.SetFloat("MoveSpeed", m_currentV);
-
-    }
 
     public void Waving()
     {

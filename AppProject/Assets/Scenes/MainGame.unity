@@ -482,6 +482,8 @@ MonoBehaviour:
   whatCanBeTouched:
     serializedVersion: 2
     m_Bits: 512
+  m_moveSpeed: 2
+  m_turnSpeed: 200
 --- !u!195 &1296101779
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -491,7 +493,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

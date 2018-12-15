@@ -46,83 +46,50 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        float v = Input.GetAxis("Vertical");
-        float h = Input.GetAxis("Horizontal");
+        //float v = Input.GetAxis("Vertical");
+        //float h = Input.GetAxis("Horizontal");
 
-        bool walk = Input.GetKey(KeyCode.LeftShift);
+        //bool walk = Input.GetKey(KeyCode.LeftShift);
 
-        if (v < 0)
-        {
-            if (walk) { v *= m_backwardsWalkScale; }
-            else { v *= m_backwardRunScale; }
-        }
-        else if (walk)
-        {
-            v *= m_walkScale;
-        }
+        //if (v < 0)
+        //{
+        //    if (walk) { v *= m_backwardsWalkScale; }
+        //    else { v *= m_backwardRunScale; }
+        //}
+        //else if (walk)
+        //{
+        //    v *= m_walkScale;
+        //}
 
-        m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
-        m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
+        //m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
+        //m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
 
-        transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
-        transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
+        //transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
+        //transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
 
-        m_animator.SetFloat("MoveSpeed", m_currentV);
+        //m_animator.SetFloat("MoveSpeed", m_currentV);
 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        ContactPoint[] contactPoints = collision.contacts;
-        for (int i = 0; i < contactPoints.Length; i++)
+        if (collision.gameObject.tag == "Ground")
         {
-            if (Vector3.Dot(contactPoints[i].normal, Vector3.up) > 0.5f)
-            {
-                if (!m_collisions.Contains(collision.collider))
-                {
-                    m_collisions.Add(collision.collider);
-                }
-                m_isGrounded = true;
-            }
+            m_isGrounded = true;
         }
     }
     private void OnCollisionStay(Collision collision)
     {
-        ContactPoint[] contactPoints = collision.contacts;
-        bool validSurfaceNormal = false;
-        for (int i = 0; i < contactPoints.Length; i++)
-        {
-            if (Vector3.Dot(contactPoints[i].normal, Vector3.up) > 0.5f)
-            {
-                validSurfaceNormal = true; break;
-            }
-        }
-
-        if (validSurfaceNormal)
+        if(collision.gameObject.tag == "Ground")
         {
             m_isGrounded = true;
-            if (!m_collisions.Contains(collision.collider))
-            {
-                m_collisions.Add(collision.collider);
-            }
         }
-        else
-        {
-            if (m_collisions.Contains(collision.collider))
-            {
-                m_collisions.Remove(collision.collider);
-            }
-            if (m_collisions.Count == 0) { m_isGrounded = false; }
-        }
+
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (m_collisions.Contains(collision.collider))
-        {
-            m_collisions.Remove(collision.collider);
-        }
-        if (m_collisions.Count == 0) { m_isGrounded = false; }
+
     }
 
 

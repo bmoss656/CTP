@@ -11,30 +11,28 @@ public class RotateAround : MonoBehaviour
 
     public float rotateSpeed = 200;
 
-	
-	// Update is called once per frame
-	void Update ()
+
+
+    // Update is called once per frame
+    void Update ()
     {
         if (rLeft)
         {
-            transform.RotateAround(orbit.transform.position, orbit.transform.up, 90);
+            transform.RotateAround(orbit.transform.position, orbit.transform.up, rotateSpeed * Time.deltaTime);
         }
         else if (rRight)
         {
-            transform.RotateAround(orbit.transform.position, orbit.transform.up, -90);
+            transform.RotateAround(orbit.transform.position, orbit.transform.up, -rotateSpeed * Time.deltaTime);
         }
-
-        rRight = false;
-        rLeft = false;
     }
 
-    public void OnPressedLeft()
+    public void OnPressedLeft(bool check)
     {
-        rLeft = true;
+        rLeft = check;
     }
 
-    public void OnPressedRight()
+    public void OnPressedRight(bool check)
     {
-        rRight = true; 
+        rRight = check; 
     }
 }

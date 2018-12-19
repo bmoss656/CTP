@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114785045315253262}
   m_Layer: 0
   m_Name: SaveData
-  m_TagString: Untagged
+  m_TagString: SaveData
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,6 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d916d814bc0b9d34ba2cdd483bcf5bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experience: 0
+  experience: 10
   pType: 
   type: 0

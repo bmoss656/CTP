@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour
 {
     public LayerMask whatCanBeTouched;
+    public GameObject closeCam;
+    public GameObject taskList;
     private NavMeshAgent myAgent;
 
     private Animator m_animator;
@@ -21,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private readonly float m_backwardRunScale = 0.66f;
 
     private bool m_isGrounded;
-    private List<Collider> m_collisions = new List<Collider>();
+    public bool canMove = true;
+
 
     private void Start()
     {
@@ -31,20 +34,38 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        
+
         m_animator.SetBool("Grounded", m_isGrounded);
-
-        if (Application.platform == RuntimePlatform.Android)
+        if (canMove)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            OnPlayerTouch();
+            if (Application.platform == RuntimePlatform.Android && canMove)
             {
-                Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                RaycastHit hitInfo;
-
-                if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    myAgent.SetDestination(hitInfo.point);
+                    Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                    RaycastHit hitInfo;
+
+                    if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                    {
+                        myAgent.SetDestination(hitInfo.point);
+                    }
                 }
             }
+            else if(canMove)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hitInfo;
+                    if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                    {
+                        myAgent.SetDestination(hitInfo.point);
+                    }
+                }
+            }
+           
         }
         //float v = Input.GetAxis("Vertical");
         //float h = Input.GetAxis("Horizontal");
@@ -87,7 +108,53 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    private void OnPlayerTouch()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                RaycastHit hitInfo;
 
+                if (Physics.Raycast(myRay, out hitInfo, 100))
+                {
+                    if(hitInfo.collider.tag == "Player")
+                    {
+                        GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+                        closeCam.SetActive(true);
+                        canMove = false;
+                        taskList.SetActive(true);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hitInfo;
+
+                if (Physics.Raycast(myRay, out hitInfo, 100))
+                {
+                    if (hitInfo.collider.tag == "Player")
+                    {
+
+                        GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+                        closeCam.SetActive(true);
+                        canMove = false;
+                        taskList.SetActive(true);
+                    }
+                }
+            }
+        }
+    }
+
+    public void SetMove(bool set)
+    {
+        canMove = set;
+    }
 
     public void Waving()
     {

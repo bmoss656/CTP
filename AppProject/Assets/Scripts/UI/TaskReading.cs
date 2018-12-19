@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TaskReading : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class TaskReading : MonoBehaviour
 
         ReadTaskLists();
         AssignTasks();
-
+        Debug.Log(Application.persistentDataPath);
 
     }
 	
@@ -49,11 +50,15 @@ public class TaskReading : MonoBehaviour
         {
             if (i < max - 1)
             {
-                transform.GetChild(i).GetComponent<Text>().text = easyTasks[Random.Range(0, easyMax)];
+               // transform.GetChild(i).GetComponent<Text>().text = easyTasks[Random.Range(0, easyMax)];
+                transform.GetChild(i).GetComponent<TMP_Text>().text = easyTasks[Random.Range(0, easyMax)];
+
+
             }
             else
             {
-                transform.GetChild(i).GetComponent<Text>().text = hardTasks[Random.Range(0, hardMax)];
+                //transform.GetChild(i).GetComponent<Text>().text = hardTasks[Random.Range(0, hardMax)];
+                transform.GetChild(i).GetComponent<TMP_Text>().text = hardTasks[Random.Range(0, hardMax)];
             }
         }
     }

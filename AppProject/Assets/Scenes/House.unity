@@ -1348,20 +1348,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1915648143538884, guid: 767295f1514971a40a0b3066a0de29fe, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114298990477720350, guid: 767295f1514971a40a0b3066a0de29fe,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 763381626}
-    - target: {fileID: 114298990477720350, guid: 767295f1514971a40a0b3066a0de29fe,
+    - target: {fileID: 114222925251820332, guid: 767295f1514971a40a0b3066a0de29fe,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UnpauseApp
-      objectReference: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1752372049}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 767295f1514971a40a0b3066a0de29fe, type: 2}
   m_IsPrefabAsset: 0
@@ -2309,7 +2305,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1353498914164612, guid: d8110b38d5bb93e4997a2dfd6aded23f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8110b38d5bb93e4997a2dfd6aded23f, type: 2}

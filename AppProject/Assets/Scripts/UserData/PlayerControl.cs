@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
     public float experience = 0;
     public string pType = "empty";
     public PlayerType type = PlayerType.EMPTY;
+    public string lastLogonDate;
 
     private void OnEnable()
     {
@@ -63,6 +64,8 @@ public class PlayerControl : MonoBehaviour
         {
             type = PlayerType.EMPTY;
         }
+
+        Debug.Log(DateTime.Today);
     }
 
     public void GiveExp(float xp)

@@ -967,6 +967,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 482610112}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &542298706 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114912971967455996, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+    type: 2}
+  m_PrefabInternal: {fileID: 701193779}
+  m_Script: {fileID: 11500000, guid: c26fa3f5eff551f44947fde195f90800, type: 3}
 --- !u!4 &562561966 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 477910, guid: edb2c2a41a0f65b429b43c1e40c622db,
@@ -2213,6 +2219,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 182952970}
     m_Modifications:
+    - target: {fileID: 114868764209589036, guid: d8110b38d5bb93e4997a2dfd6aded23f,
+        type: 2}
+      propertyPath: disable.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114868764209589036, guid: d8110b38d5bb93e4997a2dfd6aded23f,
+        type: 2}
+      propertyPath: loading.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224858765179139394, guid: d8110b38d5bb93e4997a2dfd6aded23f,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -2305,8 +2321,33 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1353498914164612, guid: d8110b38d5bb93e4997a2dfd6aded23f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114868764209589036, guid: d8110b38d5bb93e4997a2dfd6aded23f,
+        type: 2}
+      propertyPath: disable.Array.data[1]
+      value: 
+      objectReference: {fileID: 701193780}
+    - target: {fileID: 114868764209589036, guid: d8110b38d5bb93e4997a2dfd6aded23f,
+        type: 2}
+      propertyPath: disable.Array.data[0]
+      value: 
+      objectReference: {fileID: 1418853348}
+    - target: {fileID: 114555401770991288, guid: d8110b38d5bb93e4997a2dfd6aded23f,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 542298706}
+    - target: {fileID: 114555401770991288, guid: d8110b38d5bb93e4997a2dfd6aded23f,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 114868764209589036, guid: d8110b38d5bb93e4997a2dfd6aded23f,
+        type: 2}
+      propertyPath: loading.Array.data[0]
+      value: 
+      objectReference: {fileID: 1613167274}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8110b38d5bb93e4997a2dfd6aded23f, type: 2}
   m_IsPrefabAsset: 0

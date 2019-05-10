@@ -5,10 +5,11 @@ using UnityEngine;
 public class ItemControl : MonoBehaviour
 {
     public List<GameObject> items;
-    private GameObject currentObj;
+
+    public GameObject currentObj;
 
 
-    private int objectNum = 0;
+    public int objectNum = 0;
     private int maxNum = 0;
     private int shopNum = 0;
 

@@ -1382,6 +1382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  price: 100
 --- !u!114 &114672111501904702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1394,6 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  price: 125
 --- !u!114 &114944282892896346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1406,3 +1408,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  price: 75

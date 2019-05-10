@@ -64,8 +64,16 @@ public class PlayerMovement : MonoBehaviour
                         myAgent.SetDestination(hitInfo.point);
                     }
                 }
-            }
-           
+            }  
+        }
+
+        if(myAgent.velocity.x > 0.1f || myAgent.velocity.z > 0.1f)
+        {
+            m_animator.SetBool("Walking", true);
+        }
+        else
+        {
+            m_animator.SetBool("Walking", false);
         }
         //float v = Input.GetAxis("Vertical");
         //float h = Input.GetAxis("Horizontal");

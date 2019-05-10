@@ -6,6 +6,7 @@ public class RotateItem : MonoBehaviour
 {
 
     public float speed = 20f;
+    public int price;
 
 
     void Update()

@@ -8,7 +8,7 @@ using System.IO;
 public class InventoryManager : MonoBehaviour
 {
 
-    private int currency = 0;
+    private int currency;
 
     private void OnEnable()
     {
@@ -63,11 +63,13 @@ public class InventoryManager : MonoBehaviour
     public void AddCurrency(int add)
     {
         currency += add;
+        Save();
     }
 
     public void MinusCurrency(int minus)
     {
         currency -= minus;
+        Save();
     }
 }
 

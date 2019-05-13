@@ -9,9 +9,23 @@ public class LoadScene : MonoBehaviour
     public string sName;
     public PlayerControl pc;
 
+    private int lastLevel;
+
+    private void OnDisable()
+    {
+        lastLevel = SceneManager.GetActiveScene().buildIndex;
+        PlayerPrefs.SetInt("LastLevel", lastLevel);
+    }
+
     public void OpenScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    public void LoadLastScene()
+    {
+        lastLevel = PlayerPrefs.GetInt("LastLevel");
+        SceneManager.LoadScene(lastLevel, LoadSceneMode.Single);
     }
 
     public void SceneFromMenu()

@@ -14,6 +14,7 @@ public class TaskSaving : MonoBehaviour
 
     public int hours;
 
+    public bool assignedTasks = false;
 
     public void Save()
     {
@@ -27,6 +28,7 @@ public class TaskSaving : MonoBehaviour
         TaskInfo data = new TaskInfo();
         data.electronics = electronics;
         data.hours = hours;
+        data.assignedTasks = assignedTasks;
 
         bf.Serialize(file, data);
         file.Close();
@@ -44,6 +46,7 @@ public class TaskSaving : MonoBehaviour
 
             electronics = data.electronics;
             hours = data.hours;
+            assignedTasks = data.assignedTasks;
             
         }
     }
@@ -56,4 +59,5 @@ class TaskInfo
 {
     public string[] electronics;
     public int hours;
+    public bool assignedTasks;
 }

@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         m_animator.SetBool("Grounded", m_isGrounded);
         if (canMove)
         {
-            OnPlayerTouch();
+            //OnPlayerTouch();
             if (Application.platform == RuntimePlatform.Android && canMove)
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
@@ -116,48 +116,48 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void OnPlayerTouch()
-    {
-        if (Application.platform == RuntimePlatform.Android)
-        {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                RaycastHit hitInfo;
+    //private void OnPlayerTouch()
+    //{
+    //    if (Application.platform == RuntimePlatform.Android)
+    //    {
+    //        if (Input.GetTouch(0).phase == TouchPhase.Began)
+    //        {
+    //            Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+    //            RaycastHit hitInfo;
 
-                if (Physics.Raycast(myRay, out hitInfo, 100))
-                {
-                    if(hitInfo.collider.tag == "Player")
-                    {
-                        GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-                        closeCam.SetActive(true);
-                        canMove = false;
-                        taskList.SetActive(true);
-                    }
-                }
-            }
-        }
-        else
-        {
-            if(Input.GetMouseButtonDown(0))
-            {
-                Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hitInfo;
+    //            if (Physics.Raycast(myRay, out hitInfo, 100))
+    //            {
+    //                if(hitInfo.collider.tag == "Player")
+    //                {
+    //                    GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+    //                    closeCam.SetActive(true);
+    //                    canMove = false;
+    //                    taskList.SetActive(true);
+    //                }
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if(Input.GetMouseButtonDown(0))
+    //        {
+    //            Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //            RaycastHit hitInfo;
 
-                if (Physics.Raycast(myRay, out hitInfo, 100))
-                {
-                    if (hitInfo.collider.tag == "Player")
-                    {
+    //            if (Physics.Raycast(myRay, out hitInfo, 100))
+    //            {
+    //                if (hitInfo.collider.tag == "Player")
+    //                {
 
-                        GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-                        closeCam.SetActive(true);
-                        canMove = false;
-                        taskList.SetActive(true);
-                    }
-                }
-            }
-        }
-    }
+    //                    GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+    //                    closeCam.SetActive(true);
+    //                    canMove = false;
+    //                    taskList.SetActive(true);
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     public void SetMove(bool set)
     {

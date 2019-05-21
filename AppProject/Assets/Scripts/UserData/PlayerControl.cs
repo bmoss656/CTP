@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     public enum PlayerType { EMPTY, PLAYER1, PLAYER2, PLAYER3 };
 
     public float experience = 0;
+    public float maxExp = 10000;
     public string pType = "empty";
     public PlayerType type = PlayerType.EMPTY;
     public string lastLogonDate;

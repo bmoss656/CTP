@@ -21,31 +21,31 @@ public class EcoScaleFill : MonoBehaviour
         currentXP = pc.experience;
 
 
-       
 
 
-	}
+        house.fillAmount = currentXP / 10000;
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
         currentXP = pc.experience;
 
-        if (initalFill == true)
-        {
-            //Reduce fill amount over 30 seconds
-            if (house.fillAmount < currentXP /10000)
-            {
-                house.fillAmount += 1.0f / (currentXP / 100)  * Time.deltaTime;
-            }
-            else
-            {
-                initalFill = false;
-            }
-        }
-        else
-        {
+        //if (initalFill == true)
+        //{
+        //    //Reduce fill amount over 30 seconds
+        //    if (house.fillAmount < currentXP /10000)
+        //    {
+        //        house.fillAmount += (1.0f / (currentXP / 100) * Time.fixedDeltaTime) * 5 ;
+        //    }
+        //    else
+        //    {
+        //        initalFill = false;
+        //    }
+        //}
+        //else
+        //{
             house.fillAmount = currentXP / 10000;
-        }
+        //}
     }
 }

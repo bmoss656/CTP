@@ -134,4 +134,5 @@ class PlayerData
 {
     public float experience;
     public string type;
+    public EnvironmentState state;
 }

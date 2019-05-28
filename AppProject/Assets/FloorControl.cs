@@ -17,11 +17,12 @@ public class FloorControl : MonoBehaviour
         {
             mainR.material = dirtMat;
             RenderSettings.skybox = dirtMat;
+            RenderSettings.fog = true;
         }
         else
         {
             mainR.material = grassMat;
-           
+            RenderSettings.fog = false;
         }
 
 

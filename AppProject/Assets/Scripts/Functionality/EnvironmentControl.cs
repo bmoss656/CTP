@@ -35,6 +35,7 @@ public class EnvironmentControl : MonoBehaviour
 
 
     private bool badObjects = false;
+    private bool firstTime = true;
 
     private PlayerControl pc;
 
@@ -44,33 +45,42 @@ public class EnvironmentControl : MonoBehaviour
     {
         m_instance = this;
         pc = GameObject.FindGameObjectWithTag("SaveData").GetComponent<PlayerControl>();
-        exp = pc.experience;
-        curState = SetEnvironmentState();
+        //exp = pc.experience;
+        //curState = SetEnvironmentState();
     }
 
     // Use this for initialization
     void Start()
     {
-        treeCount = treeObjects.transform.childCount;
-        foliageCount = foliageObjects.transform.childCount;
-        deadCount = deadObjects.transform.childCount;
-
-        if (curState == EnvironmentState.State1 || curState == EnvironmentState.State2)
+        if (firstTime)
         {
-            badObjects = true;
+            exp = pc.experience;
+            treeCount = treeObjects.transform.childCount;
+            foliageCount = foliageObjects.transform.childCount;
+            deadCount = deadObjects.transform.childCount;
+
+            if (curState == EnvironmentState.State1 || curState == EnvironmentState.State2)
+            {
+                badObjects = true;
+            }
+            curState = SetEnvironmentState();
+            SetEnvironmentVariables();
+            SetActiveEnvironment();
+            firstTime = false;
         }
-        SetEnvironmentVariables();
-        SetActiveEnvironment();
     }
     private void OnEnable()
     {
-        exp = pc.experience;
-        curState = SetEnvironmentState();
-        SetEnvironmentVariables();
-        SetActiveEnvironment();
+        if (firstTime == false)
+        {
+            exp = pc.experience;
+            curState = SetEnvironmentState();
+            SetEnvironmentVariables();
+            SetActiveEnvironment();
+        }
     }
 
-    private EnvironmentState SetEnvironmentState()
+    public EnvironmentState SetEnvironmentState()
     {
         if (exp < 500)
         {

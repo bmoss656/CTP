@@ -18,6 +18,11 @@ public class PlayerControl : MonoBehaviour
     public PlayerType type = PlayerType.EMPTY;
     public string lastLogonDate;
 
+    private void Awake()
+    {
+        Load();
+    }
+
     private void OnEnable()
     {
         Load();
@@ -73,11 +78,19 @@ public class PlayerControl : MonoBehaviour
     public void GiveExp(float xp)
     {
         experience += xp;
+        if(experience > 10000)
+        {
+            experience = 10000;
+        }
     }
 
     public void LoseExp(float xp)
     {
         experience -= xp;
+        if(experience < 0)
+        {
+            experience = 0;
+        }
     }
 
     public void SetPlayerType(string pt)

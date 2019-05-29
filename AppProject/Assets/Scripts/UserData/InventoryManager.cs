@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Linq;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -92,6 +93,18 @@ public class InventoryManager : MonoBehaviour
     public void TakeItem(int num)
     {
         heldItems.RemoveAt(num);
+    }
+
+    public string GetItem(int num)
+    {
+        if(heldItems.ElementAtOrDefault(num) != null)
+        {
+            return heldItems[num];
+        }
+        else
+        {
+            return "NULL";
+        }
     }
 }
 

@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+
 public class TaskButton : MonoBehaviour
 {
     private int[] date;
@@ -30,10 +31,13 @@ public class TaskButton : MonoBehaviour
 
     private void CheckDay()
     {
-        DateTime curDate = new DateTime();
-        for(int i =0; i< 5;i++)
+        string day = System.DateTime.Now.ToString();
+
+        string[] actualDay = day.Split('/');
+
+        for (int i =0; i< 5;i++)
         {
-            if(date[i] != curDate.Day)
+            if(date[i] != int.Parse(actualDay[1]))
             {
                 buttons[i].SetActive(true);
             }
@@ -46,8 +50,11 @@ public class TaskButton : MonoBehaviour
 
     public void ButtonPressed(int buttonNum)
     {
-        DateTime curDate = new DateTime();
-        date[buttonNum] = curDate.Day;
+        string day = System.DateTime.Now.ToString();
+
+        string[] actualDay = day.Split('/');
+
+        date[buttonNum] = int.Parse(actualDay[1]);
     }
 
 

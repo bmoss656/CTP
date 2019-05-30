@@ -12,11 +12,29 @@ public class TaskButton : MonoBehaviour
 
     public GameObject[] buttons;
 
+    public bool weeklyTask = false;
+    public int weeklyCount;
+    public int curDate;
+
+    private bool[] weeklyActive;
+
     private void OnEnable()
     {
         date = new int[5];
+        weeklyActive = new bool[5];
+        for(int i = 0;i<5;i++)
+        {
+            weeklyActive[i] = true;
+        }
         Load();
-        CheckDay();
+        if (!weeklyTask)
+        {
+            CheckDay();
+        }
+        else
+        {
+            CheckWeek();
+        }
     }
 
     private void OnApplicationQuit()
@@ -47,6 +65,41 @@ public class TaskButton : MonoBehaviour
             }
         }
     }
+    private void CheckWeek()
+    {
+        string day = System.DateTime.Now.ToString();
+
+        string[] actualDay = day.Split('/');
+
+
+        if (curDate != int.Parse(actualDay[1]))
+        {
+            weeklyCount++;
+            curDate = int.Parse(actualDay[1]);
+        }
+
+        if(weeklyCount >= 7)
+        {
+            weeklyCount = 0;
+            for(int i = 0; i< 5; i++)
+            {
+                buttons[i].SetActive(true);
+                weeklyActive[i] = true;
+            }
+        }
+
+        for(int i = 0;i< 5;i++)
+        {
+            if(weeklyActive[i])
+            {
+                buttons[i].SetActive(true);
+            }
+            else
+            {
+                buttons[i].SetActive(false);
+            }
+        }
+    }
 
     public void ButtonPressed(int buttonNum)
     {
@@ -55,6 +108,11 @@ public class TaskButton : MonoBehaviour
         string[] actualDay = day.Split('/');
 
         date[buttonNum] = int.Parse(actualDay[1]);
+    }
+
+    public void ButtonPressedWeek(int buttonNum)
+    {
+        weeklyActive[buttonNum] = false;
     }
 
 
@@ -66,6 +124,9 @@ public class TaskButton : MonoBehaviour
         TaskDates data = new TaskDates();
 
         data.dailyDate = date;
+        data.curDate = curDate;
+        data.weeklyCount = weeklyCount;
+        data.weeklyActive = weeklyActive;
 
         bf.Serialize(file, data);
         file.Close();
@@ -82,6 +143,9 @@ public class TaskButton : MonoBehaviour
             file.Close();
 
             date = data.dailyDate;
+            weeklyActive = data.weeklyActive;
+            weeklyCount = data.weeklyCount;
+            curDate = data.curDate;
         }
     }
 
@@ -91,5 +155,7 @@ public class TaskButton : MonoBehaviour
 class TaskDates
 {
     public int[] dailyDate;
-    public int[] weeklyDate;
+    public bool[] weeklyActive;
+    public int weeklyCount;
+    public int curDate;
 }

@@ -20,6 +20,7 @@ public class TaskSaving : MonoBehaviour
     public GameObject tut;
     public GameObject Tasks;
 
+    public TaskButton taskBut;
     private void OnEnable()
     {
         Load();
@@ -81,6 +82,14 @@ public class TaskSaving : MonoBehaviour
     public void SetTutorial(bool set)
     {
         doneTutorial = set;
+        taskBut.weeklyCount = 1;
+
+        string day = System.DateTime.Now.ToString();
+
+        string[] actualDay = day.Split('/');
+
+       taskBut.curDate = int.Parse(actualDay[1]);
+
     }
 
 }

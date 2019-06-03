@@ -41,28 +41,38 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Application.platform == RuntimePlatform.Android && Input.touchCount > 0)
             {
-
-                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
-                    Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                    RaycastHit hitInfo;
-
-                    if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                    if (Input.GetTouch(0).phase == TouchPhase.Began)
                     {
-                        myAgent.SetDestination(hitInfo.point);
+                        Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                        RaycastHit hitInfo;
+
+                        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+                        {
+                            if (hitInfo.collider.tag == "Ground")
+                            {
+                                myAgent.SetDestination(hitInfo.point);
+                            }
+                        }
                     }
                 }
-
             }
             else if (Application.platform == RuntimePlatform.WindowsEditor)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
-                    Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hitInfo;
-                    if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        myAgent.SetDestination(hitInfo.point);
+                        Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit hitInfo;
+                        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+                        {
+                            if (hitInfo.collider.tag == "Ground")
+                            {
+                                myAgent.SetDestination(hitInfo.point);
+                            }
+                        }
                     }
                 }
             }  

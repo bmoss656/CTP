@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class EarthInfo : MonoBehaviour
 {
-    public Canvas infoCan;
+    public GameObject infoCan;
+    private SetInformation setInfo;
+    public int num;
 	// Use this for initialization
 	void Start ()
     {
@@ -15,15 +17,34 @@ public class EarthInfo : MonoBehaviour
 
     void Update()
     {
-        if ((Input.touchCount > 0))
+        if (Application.platform == RuntimePlatform.Android)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            if ((Input.touchCount > 0))
             {
-                Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                RaycastHit raycastHit;
-                if (Physics.Raycast(raycast, out raycastHit))
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    if (raycastHit.collider.name == this.name)
+                    Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                    RaycastHit hitInfo;
+                    if (Physics.Raycast(raycast, out hitInfo))
+                    {
+                        if (hitInfo.collider.name == this.name)
+                        {
+                            OpenUI();
+                        }
+                    }
+                }
+            }
+        }
+        else if(Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hitInfo;
+                if (Physics.Raycast(myRay, out hitInfo))
+                {
+                    if (hitInfo.collider.name == this.name)
                     {
                         OpenUI();
                     }
@@ -34,7 +55,10 @@ public class EarthInfo : MonoBehaviour
 
     void OpenUI()
     {
-        infoCan.enabled = true;
+        infoCan.SetActive(true);
+        setInfo = infoCan.GetComponent<SetInformation>();
+        setInfo.SetCurrentInfo(num);
+        setInfo.SetText();
     }
 
 }

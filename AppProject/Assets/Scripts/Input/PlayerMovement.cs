@@ -56,13 +56,26 @@ public class PlayerMovement : MonoBehaviour
                             }
                         }
                     }
+                    else if(Input.GetTouch(0).phase == TouchPhase.Moved)
+                    {
+                        Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                        RaycastHit hitInfo;
+
+                        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+                        {
+                            if (hitInfo.collider.tag == "Ground")
+                            {
+                                myAgent.SetDestination(hitInfo.point);
+                            }
+                        }
+                    }
                 }
             }
             else if (Application.platform == RuntimePlatform.WindowsEditor)
             {
                 if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButton(0))
                     {
                         Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
                         RaycastHit hitInfo;

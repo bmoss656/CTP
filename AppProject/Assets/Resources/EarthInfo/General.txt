@@ -1,7 +1,7 @@
-State 1: 
-State 2:
-State 3:
-State 4:
-State 5:
-State 6:
-State 7:
+General State 1: 
+General State 2:
+General State 3:
+General State 4:
+General State 5:
+General State 6:
+General State 7:

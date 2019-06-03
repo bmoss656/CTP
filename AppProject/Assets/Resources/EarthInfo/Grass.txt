@@ -1,7 +1,7 @@
-State 1: 
-State 2:
-State 3:
-State 4:
-State 5:
-State 6:
-State 7:
+Grass State 1: 
+Grass State 2:
+Grass State 3:
+Grass State 4:
+Grass State 5:
+Grass State 6:
+Grass State 7:

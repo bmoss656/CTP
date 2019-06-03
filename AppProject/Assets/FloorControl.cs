@@ -6,14 +6,15 @@ public class FloorControl : MonoBehaviour
 {
     public Material grassMat;
     public Material dirtMat;
+    public Material skybox_m;
 
     private Renderer mainR;
-	// Use this for initialization
-	void Start ()
+
+    public void SetEnviroFloor()
     {
         mainR = GetComponent<Renderer>();
         if (EnvironmentControl.instance.curState == EnvironmentState.State1 ||
-            EnvironmentControl.instance.curState == EnvironmentState.State2)
+           EnvironmentControl.instance.curState == EnvironmentState.State2)
         {
             mainR.material = dirtMat;
             RenderSettings.skybox = dirtMat;
@@ -23,9 +24,8 @@ public class FloorControl : MonoBehaviour
         {
             mainR.material = grassMat;
             RenderSettings.fog = false;
+            RenderSettings.skybox = skybox_m;
         }
-
-
     }
 
 }

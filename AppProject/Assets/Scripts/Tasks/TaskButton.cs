@@ -11,12 +11,16 @@ public class TaskButton : MonoBehaviour
     private int[] date;
 
     public GameObject[] buttons;
+    private PlayerControl pc;
 
     public bool weeklyTask = false;
     public int weeklyCount;
     public int curDate;
 
     private bool[] weeklyActive;
+
+    private int dailyTasksDone = 5;
+    private int weeklyTasksDone = 5;
 
     private void OnEnable()
     {
@@ -35,6 +39,10 @@ public class TaskButton : MonoBehaviour
         {
             CheckWeek();
         }
+    }
+    private void Start()
+    {
+        pc = PlayerControl.instance;
     }
 
     private void OnApplicationQuit()
@@ -64,6 +72,24 @@ public class TaskButton : MonoBehaviour
                 buttons[i].SetActive(false);
             }
         }
+
+        if (curDate != int.Parse(actualDay[1]))
+        {
+            pc.LoseExp(dailyTasksDone * 50);
+            curDate = int.Parse(actualDay[1]);
+            dailyTasksDone = 5;
+        }
+        else
+        {
+            for(int i = 0; i< 5; i++)
+            {
+                if(buttons[i].activeSelf == false)
+                {
+                    dailyTasksDone--;
+                }
+            }
+        }
+
     }
     private void CheckWeek()
     {
@@ -77,11 +103,18 @@ public class TaskButton : MonoBehaviour
             weeklyCount++;
             curDate = int.Parse(actualDay[1]);
         }
-
-        if(weeklyCount >= 7)
+        for (int i = 0; i < 5; i++)
+        {
+            if (buttons[i].activeSelf == false)
+            {
+                weeklyTasksDone--;
+            }
+        }
+        if (weeklyCount >= 7)
         {
             weeklyCount = 0;
-            for(int i = 0; i< 5; i++)
+            pc.LoseExp(weeklyTasksDone * 200);
+            for (int i = 0; i< 5; i++)
             {
                 buttons[i].SetActive(true);
                 weeklyActive[i] = true;

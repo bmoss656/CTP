@@ -22,17 +22,20 @@ public class EnvironmentControl : MonoBehaviour
     public GameObject treeObjects;
     public GameObject foliageObjects;
     public GameObject deadObjects;
+    public GameObject grassObjects;
+    public FloorControl fc;
 
     public EnvironmentState curState;
 
     private int treeCount;
     private int foliageCount;
     private int deadCount;
+    private int grassCount;
 
     private int activeTree;
     private int activeFoliage;
     private int activeDead;
-
+    private int activeGrass;
 
     private bool badObjects = false;
     private bool firstTime = true;
@@ -54,18 +57,17 @@ public class EnvironmentControl : MonoBehaviour
     {
         if (firstTime)
         {
-            exp = pc.experience;
+
             treeCount = treeObjects.transform.childCount;
             foliageCount = foliageObjects.transform.childCount;
             deadCount = deadObjects.transform.childCount;
+            grassCount = grassObjects.transform.childCount;
 
             if (curState == EnvironmentState.State1 || curState == EnvironmentState.State2)
             {
                 badObjects = true;
             }
-            curState = SetEnvironmentState();
-            SetEnvironmentVariables();
-            SetActiveEnvironment();
+            SetEnvironment();
             firstTime = false;
         }
     }
@@ -73,11 +75,17 @@ public class EnvironmentControl : MonoBehaviour
     {
         if (firstTime == false)
         {
-            exp = pc.experience;
-            curState = SetEnvironmentState();
-            SetEnvironmentVariables();
-            SetActiveEnvironment();
+            SetEnvironment();
         }
+    }
+
+    public void SetEnvironment()
+    {
+        exp = pc.experience;
+        curState = SetEnvironmentState();
+        SetEnvironmentVariables();
+        SetActiveEnvironment();
+        fc.SetEnviroFloor();
     }
 
     public EnvironmentState SetEnvironmentState()
@@ -123,31 +131,37 @@ public class EnvironmentControl : MonoBehaviour
             case EnvironmentState.State1:
                 activeFoliage = 0;
                 activeTree = 0;
+                activeGrass = 0;
                 activeDead = deadCount;
                 break;
             case EnvironmentState.State2:
                 activeFoliage = 0;
                 activeTree = 0;
+                activeGrass = 0;
                 activeDead = deadCount / 2;
                 break;
             case EnvironmentState.State3:
-                activeFoliage = 2;
-                activeTree = 1;
+                activeFoliage = foliageCount / 5;
+                activeTree = treeCount / 5;
+                activeGrass = grassCount / 5;
                 deadCount = 0;
                 break;
             case EnvironmentState.State4:
                 activeFoliage = foliageCount / 3;
                 activeTree = treeCount / 3;
+                activeGrass = grassCount / 3;
                 deadCount = 0;
                 break;
             case EnvironmentState.State5:
                 activeFoliage = foliageCount / 2;
                 activeTree = treeCount / 2;
+                activeGrass = grassCount / 3;
                 deadCount = 0;
                 break;
             case EnvironmentState.State6:
                 activeFoliage = foliageCount;
                 activeTree = treeCount;
+                activeGrass = grassCount;
                 deadCount = 0;
                 break;
             case EnvironmentState.State7:
@@ -185,6 +199,19 @@ public class EnvironmentControl : MonoBehaviour
             for (int i = 0; i < activeFoliage; i++)
             {
                 foliageObjects.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+        
+        if(activeGrass == 0)
+        {
+            grassObjects.SetActive(false);
+        }
+        else
+        {
+            grassObjects.SetActive(true);
+            for (int i = 0; i < activeGrass; i++)
+            {
+                grassObjects.transform.GetChild(i).gameObject.SetActive(true);
             }
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using System.Linq;
+
 
 public class InventoryManager : MonoBehaviour
 {
@@ -97,7 +97,7 @@ public class InventoryManager : MonoBehaviour
 
     public string GetItem(int num)
     {
-        if(heldItems.ElementAtOrDefault(num) != null)
+        if(heldItems.Count > num)
         {
             return heldItems[num];
         }

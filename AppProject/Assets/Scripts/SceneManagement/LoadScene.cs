@@ -11,6 +11,7 @@ public class LoadScene : MonoBehaviour
 
     private int lastLevel;
 
+
     private void OnDisable()
     {
         lastLevel = SceneManager.GetActiveScene().buildIndex;
@@ -20,6 +21,7 @@ public class LoadScene : MonoBehaviour
     public void OpenScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        
     }
 
     public void LoadLastScene()

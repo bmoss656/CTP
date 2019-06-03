@@ -9,6 +9,9 @@ using System.IO;
 
 public class PlayerControl : MonoBehaviour
 {
+    private static PlayerControl m_instance;
+    public static PlayerControl instance { get { return m_instance; } }
+
     public static PlayerControl control;
     public enum PlayerType { EMPTY, PLAYER1, PLAYER2, PLAYER3 };
 
@@ -25,6 +28,7 @@ public class PlayerControl : MonoBehaviour
 
     private void OnEnable()
     {
+        m_instance = this;
         Load();
     }
     private void OnDisable()

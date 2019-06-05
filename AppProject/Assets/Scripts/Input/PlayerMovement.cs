@@ -30,44 +30,68 @@ public class PlayerMovement : MonoBehaviour
     {
         myAgent = GetComponent<NavMeshAgent>();
         m_animator = GetComponent<Animator>();
+        m_isGrounded = false;
     }
 
     private void Update()
     {
         
-
         m_animator.SetBool("Grounded", m_isGrounded);
         if (canMove)
         {
-            //OnPlayerTouch();
-            if (Application.platform == RuntimePlatform.Android && canMove)
+            if (Application.platform == RuntimePlatform.Android && Input.touchCount > 0)
             {
-                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
-                    Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                    RaycastHit hitInfo;
-
-                    if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                    if (Input.GetTouch(0).phase == TouchPhase.Began)
                     {
-                        myAgent.SetDestination(hitInfo.point);
+                        Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                        RaycastHit hitInfo;
+
+                        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+                        {
+                            if (hitInfo.collider.tag == "Ground")
+                            {
+                                myAgent.SetDestination(hitInfo.point);
+                            }
+                        }
+                    }
+                    else if(Input.GetTouch(0).phase == TouchPhase.Moved)
+                    {
+                        Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                        RaycastHit hitInfo;
+
+                        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+                        {
+                            if (hitInfo.collider.tag == "Ground")
+                            {
+                                myAgent.SetDestination(hitInfo.point);
+                            }
+                        }
                     }
                 }
             }
-            else if(canMove)
+            else if (Application.platform == RuntimePlatform.WindowsEditor)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
-                    Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hitInfo;
-                    if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                    if (Input.GetMouseButton(0))
                     {
-                        myAgent.SetDestination(hitInfo.point);
+                        Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit hitInfo;
+                        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+                        {
+                            if (hitInfo.collider.tag == "Ground")
+                            {
+                                myAgent.SetDestination(hitInfo.point);
+                            }
+                        }
                     }
                 }
             }  
         }
 
-        if(myAgent.velocity.x > 0.1f || myAgent.velocity.z > 0.1f)
+        if (myAgent.velocity.x > 0.1f || myAgent.velocity.z > 0.1f)
         {
             m_animator.SetBool("Walking", true);
         }
@@ -75,28 +99,6 @@ public class PlayerMovement : MonoBehaviour
         {
             m_animator.SetBool("Walking", false);
         }
-        //float v = Input.GetAxis("Vertical");
-        //float h = Input.GetAxis("Horizontal");
-
-        //bool walk = Input.GetKey(KeyCode.LeftShift);
-
-        //if (v < 0)
-        //{
-        //    if (walk) { v *= m_backwardsWalkScale; }
-        //    else { v *= m_backwardRunScale; }
-        //}
-        //else if (walk)
-        //{
-        //    v *= m_walkScale;
-        //}
-
-        //m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
-        //m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
-
-        //transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
-        //transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
-
-        //m_animator.SetFloat("MoveSpeed", m_currentV);
 
     }
 

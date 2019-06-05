@@ -20,24 +20,34 @@ public class EnvironmentControl : MonoBehaviour
     public static EnvironmentControl instance { get { return m_instance; } }
 
     public GameObject treeObjects;
-    public GameObject foliageObjects;
     public GameObject deadObjects;
+
+    public GameObject foliageObjects;
+    public GameObject deadFoliage;
+
     public GameObject grassObjects;
+    public GameObject deadGrass;
     public FloorControl fc;
 
     public EnvironmentState curState;
 
     private int treeCount;
     private int foliageCount;
-    private int deadCount;
     private int grassCount;
 
+    private int deadTreeCount;
+    private int deadGrassCount;
+    private int deadFoliageCount;
+
     private int activeTree;
+
     private int activeFoliage;
+    private int activeDeadFoliage;
+
     private int activeDead;
     private int activeGrass;
+    private int activeDeadGrass;
 
-    private bool badObjects = false;
     private bool firstTime = true;
 
     private PlayerControl pc;
@@ -60,13 +70,11 @@ public class EnvironmentControl : MonoBehaviour
 
             treeCount = treeObjects.transform.childCount;
             foliageCount = foliageObjects.transform.childCount;
-            deadCount = deadObjects.transform.childCount;
+            deadTreeCount = deadObjects.transform.childCount;
             grassCount = grassObjects.transform.childCount;
+            deadGrassCount = deadGrass.transform.childCount;
+            deadFoliageCount = deadFoliage.transform.childCount;
 
-            if (curState == EnvironmentState.State1 || curState == EnvironmentState.State2)
-            {
-                badObjects = true;
-            }
             SetEnvironment();
             firstTime = false;
         }
@@ -132,37 +140,49 @@ public class EnvironmentControl : MonoBehaviour
                 activeFoliage = 0;
                 activeTree = 0;
                 activeGrass = 0;
-                activeDead = deadCount;
+                activeDead = deadTreeCount;
+                activeDeadGrass = deadGrassCount;
+                activeDeadFoliage = 0;
                 break;
             case EnvironmentState.State2:
                 activeFoliage = 0;
                 activeTree = 0;
                 activeGrass = 0;
-                activeDead = deadCount / 2;
+                activeDead = deadTreeCount / 2;
+                activeDeadGrass = deadGrassCount / 2;
+                activeDeadFoliage = deadFoliageCount;
                 break;
             case EnvironmentState.State3:
                 activeFoliage = foliageCount / 5;
                 activeTree = treeCount / 5;
                 activeGrass = grassCount / 5;
-                deadCount = 0;
+                activeDead = 0;
+                activeDeadGrass = 0;
+                activeDeadFoliage = 0;
                 break;
             case EnvironmentState.State4:
                 activeFoliage = foliageCount / 3;
                 activeTree = treeCount / 3;
                 activeGrass = grassCount / 3;
-                deadCount = 0;
+                activeDead = 0;
+                activeDeadGrass = 0;
+                activeDeadFoliage = 0;
                 break;
             case EnvironmentState.State5:
                 activeFoliage = foliageCount / 2;
                 activeTree = treeCount / 2;
                 activeGrass = grassCount / 3;
-                deadCount = 0;
+                activeDead = 0;
+                activeDeadGrass = 0;
+                activeDeadFoliage = 0;
                 break;
             case EnvironmentState.State6:
                 activeFoliage = foliageCount;
                 activeTree = treeCount;
                 activeGrass = grassCount;
-                deadCount = 0;
+                activeDead = 0;
+                activeDeadGrass = 0;
+                activeDeadFoliage = 0;
                 break;
             case EnvironmentState.State7:
                 break;
@@ -170,6 +190,9 @@ public class EnvironmentControl : MonoBehaviour
                 activeFoliage = 0;
                 activeTree = 0;
                 activeDead = 0;
+                activeGrass = 0;
+                activeDeadGrass = 0;
+                activeDeadFoliage = 0;
                 break;
         }
     }
@@ -225,6 +248,32 @@ public class EnvironmentControl : MonoBehaviour
             for (int i = 0; i < activeDead; i++)
             {
                 deadObjects.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+
+        if (activeDeadGrass == 0)
+        {
+            deadGrass.SetActive(false);
+        }
+        else
+        {
+            deadGrass.SetActive(true);
+            for (int i = 0; i < activeDeadGrass; i++)
+            {
+                deadGrass.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+
+        if (activeDeadFoliage == 0)
+        {
+            deadFoliage.SetActive(false);
+        }
+        else
+        {
+            deadFoliage.SetActive(true);
+            for (int i = 0; i < activeDeadFoliage; i++)
+            {
+                deadFoliage.transform.GetChild(i).gameObject.SetActive(true);
             }
         }
     }

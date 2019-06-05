@@ -73,22 +73,22 @@ public class TaskButton : MonoBehaviour
             }
         }
 
-        if (curDate != int.Parse(actualDay[1]))
-        {
-            pc.LoseExp(dailyTasksDone * 50);
-            curDate = int.Parse(actualDay[1]);
-            dailyTasksDone = 5;
-        }
-        else
-        {
-            for(int i = 0; i< 5; i++)
-            {
-                if(buttons[i].activeSelf == false)
-                {
-                    dailyTasksDone--;
-                }
-            }
-        }
+        //if (curDate != int.Parse(actualDay[1]))
+        //{
+        //    pc.LoseExp(dailyTasksDone * 50);
+        //    curDate = int.Parse(actualDay[1]);
+        //    dailyTasksDone = 5;
+        //}
+        //else
+        //{
+        //    for(int i = 0; i< 5; i++)
+        //    {
+        //        if(buttons[i].activeSelf == false)
+        //        {
+        //            dailyTasksDone--;
+        //        }
+        //    }
+        //}
 
     }
     private void CheckWeek()

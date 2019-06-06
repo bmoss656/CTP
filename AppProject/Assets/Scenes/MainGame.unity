@@ -13217,15 +13217,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4579534815985696, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: -1.39
       objectReference: {fileID: 0}
     - target: {fileID: 4579534815985696, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: 1.39
       objectReference: {fileID: 0}
     - target: {fileID: 4579534815985696, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 8.99
       objectReference: {fileID: 0}
     - target: {fileID: 4579534815985696, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_LocalRotation.x
@@ -13264,6 +13264,46 @@ Prefab:
         type: 2}
       propertyPath: m_Mass
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 136965656627608240, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 136965656627608240, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54356586617130432, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+        type: 2}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195790136646438322, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+        type: 2}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195790136646438322, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+        type: 2}
+      propertyPath: m_Speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 195790136646438322, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+        type: 2}
+      propertyPath: m_AutoRepath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 195790136646438322, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+        type: 2}
+      propertyPath: avoidancePriority
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 195790136646438322, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834,
+        type: 2}
+      propertyPath: m_AngularSpeed
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}

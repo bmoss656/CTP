@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject closeCam;
     public GameObject taskList;
     private NavMeshAgent myAgent;
+    private Rigidbody rb;
 
     private Animator m_animator;
     [SerializeField] private float m_moveSpeed = 2;
@@ -31,9 +32,10 @@ public class PlayerMovement : MonoBehaviour
         myAgent = GetComponent<NavMeshAgent>();
         m_animator = GetComponent<Animator>();
         m_isGrounded = false;
+        rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         
         m_animator.SetBool("Grounded", m_isGrounded);
@@ -91,15 +93,9 @@ public class PlayerMovement : MonoBehaviour
             }  
         }
 
-        if (myAgent.velocity.x > 0.1f || myAgent.velocity.z > 0.1f)
-        {
-            m_animator.SetBool("Walking", true);
-        }
-        else
-        {
-            m_animator.SetBool("Walking", false);
-        }
+        bool shouldMove = myAgent.velocity.magnitude > 0.5f && myAgent.remainingDistance > myAgent.radius;
 
+        m_animator.SetBool("Walking", shouldMove);
     }
 
     private void OnTriggerEnter(Collider other)

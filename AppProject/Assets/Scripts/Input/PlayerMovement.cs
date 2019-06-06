@@ -102,64 +102,21 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Ground")
         {
             m_isGrounded = true;
         }
     }
-    private void OnCollisionStay(Collision collision)
+
+    private void OnTriggerStay(Collider other)
     {
-        if(collision.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Ground")
         {
             m_isGrounded = true;
         }
-
     }
-
-    //private void OnPlayerTouch()
-    //{
-    //    if (Application.platform == RuntimePlatform.Android)
-    //    {
-    //        if (Input.GetTouch(0).phase == TouchPhase.Began)
-    //        {
-    //            Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-    //            RaycastHit hitInfo;
-
-    //            if (Physics.Raycast(myRay, out hitInfo, 100))
-    //            {
-    //                if(hitInfo.collider.tag == "Player")
-    //                {
-    //                    GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-    //                    closeCam.SetActive(true);
-    //                    canMove = false;
-    //                    taskList.SetActive(true);
-    //                }
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if(Input.GetMouseButtonDown(0))
-    //        {
-    //            Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //            RaycastHit hitInfo;
-
-    //            if (Physics.Raycast(myRay, out hitInfo, 100))
-    //            {
-    //                if (hitInfo.collider.tag == "Player")
-    //                {
-
-    //                    GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-    //                    closeCam.SetActive(true);
-    //                    canMove = false;
-    //                    taskList.SetActive(true);
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
 
     public void SetMove(bool set)
     {

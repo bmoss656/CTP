@@ -19,6 +19,14 @@ public class FloorControl : MonoBehaviour
             mainR.material = dirtMat;
             RenderSettings.skybox = dirtMat;
             RenderSettings.fog = true;
+            if(EnvironmentControl.instance.curState == EnvironmentState.State1)
+            {
+                RenderSettings.fogEndDistance = 50;
+            }
+            else if (EnvironmentControl.instance.curState == EnvironmentState.State2)
+            {
+                RenderSettings.fogEndDistance = 90;
+            }
         }
         else
         {

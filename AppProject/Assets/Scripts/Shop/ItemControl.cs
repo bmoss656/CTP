@@ -25,6 +25,7 @@ public class ItemControl : MonoBehaviour
     {
         this.gameObject.SetActive(false);
         Destroy(currentObj);
+        currentObj = null;
     }
 
 
@@ -73,6 +74,5 @@ public class ItemControl : MonoBehaviour
     {
         return currentObj.transform.GetChild(objectNum).gameObject;
     }
-
     
 }

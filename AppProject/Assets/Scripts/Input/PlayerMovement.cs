@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     {
         myAgent = GetComponent<NavMeshAgent>();
         m_animator = GetComponent<Animator>();
-        m_isGrounded = false;
+        m_isGrounded = true;
         rb = GetComponent<Rigidbody>();
     }
 

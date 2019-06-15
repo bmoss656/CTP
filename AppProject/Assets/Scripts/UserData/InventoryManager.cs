@@ -18,8 +18,8 @@ public class InventoryManager : MonoBehaviour
 
     private void OnEnable()
     {
-        heldItems = new List<string>();
         m_instance = this;
+        heldItems = new List<string>();   
         Load();
     }
     private void OnDisable()
@@ -45,7 +45,12 @@ public class InventoryManager : MonoBehaviour
 
         InventoryData data = new InventoryData();
         data.currency = currency;
-        data.heldItems = heldItems;
+        data.heldItems = new List<string>(heldItems.Count);
+        for(int i = 0;i<heldItems.Count;i++)
+        {
+            data.heldItems.Add(heldItems[i]);
+        }
+        //data.heldItems = heldItems;
         data.curInvSize = curInvSize;
 
         bf.Serialize(file, data);
@@ -63,8 +68,18 @@ public class InventoryManager : MonoBehaviour
             file.Close();
 
             currency = data.currency;
-            heldItems = data.heldItems;
+            heldItems = new List<string>(data.heldItems.Count);
+            for (int i = 0; i < data.heldItems.Count; i++)
+            {
+                heldItems.Add(data.heldItems[i]);
+            }
             curInvSize = data.curInvSize;
+        }
+        else
+        {
+            currency = 0;
+            heldItems = new List<string>();
+            curInvSize = 0;
         }
     }
 

@@ -29,6 +29,7 @@ public class LoadScene : MonoBehaviour
     {
         lastLevel = PlayerPrefs.GetInt("LastLevel");
         SceneManager.LoadScene(lastLevel, LoadSceneMode.Single);
+        Time.timeScale = 1;
     }
 
     public void SceneFromMenu()

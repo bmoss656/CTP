@@ -7,7 +7,7 @@ public class BuildingFunctionality : MonoBehaviour
     private bool selected = false;
 
 
-    public float speed = 40f;
+    public float speed = 80f;
     private bool rLeft = false;
     private bool rRight = false;
 
@@ -20,7 +20,10 @@ public class BuildingFunctionality : MonoBehaviour
     private GameObject curLeftArrow;
 
     public GameObject rightArrow;
-    public GameObject leftArrow;   
+    public GameObject leftArrow;
+
+
+    private bool inBuildMode = false;
 
 	// Use this for initialization
 	void Start ()
@@ -32,27 +35,62 @@ public class BuildingFunctionality : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (selected)
+        if (inBuildMode)
         {
-            FollowTouch();
-            if (rLeft)
+            if (selected)
             {
-                selectedObject.transform.Rotate(Vector3.up, speed * Time.deltaTime);
-            }
-            else if (rRight)
-            {
-                selectedObject.transform.Rotate(Vector3.down, speed * Time.deltaTime);
-            }
-            return;
-        }
-
-        if (Application.platform == RuntimePlatform.Android)
-        {
-            if ((Input.touchCount > 0))
-            {
-                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                FollowTouch();
+                if (rLeft)
                 {
-                    Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                    selectedObject.transform.Rotate(Vector3.up, speed * Time.deltaTime);
+                }
+                else if (rRight)
+                {
+                    selectedObject.transform.Rotate(Vector3.down, speed * Time.deltaTime);
+                }
+                return;
+            }
+
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                if ((Input.touchCount > 0))
+                {
+                    if (Input.GetTouch(0).phase == TouchPhase.Began)
+                    {
+                        Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                        RaycastHit hitInfo;
+                        if (Physics.Raycast(raycast, out hitInfo))
+                        {
+                            if (hitInfo.collider.tag == "Placeable")
+                            {
+                                if (!selected)
+                                {
+                                    selected = true;
+                                    selectedObject = hitInfo.collider.gameObject;
+                                    lastPosition = selectedObject.transform.position;
+                                    //SpawnArrows();
+                                    rightArrow.SetActive(true);
+                                    leftArrow.SetActive(true);
+                                }
+                                else
+                                {
+                                    selected = false;
+                                    selectedObject = null;
+                                    lastPosition = new Vector3(0, 0, 0);
+                                    rightArrow.SetActive(false);
+                                    leftArrow.SetActive(false);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (Application.platform == RuntimePlatform.WindowsEditor)
+            {
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hitInfo;
                     if (Physics.Raycast(raycast, out hitInfo))
                     {
@@ -80,39 +118,6 @@ public class BuildingFunctionality : MonoBehaviour
                 }
             }
         }
-        else if (Application.platform == RuntimePlatform.WindowsEditor)
-        {
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hitInfo;
-                if (Physics.Raycast(raycast, out hitInfo))
-                {
-                    if (hitInfo.collider.tag == "Placeable")
-                    {
-                        if (!selected)
-                        {
-                            selected = true;
-                            selectedObject = hitInfo.collider.gameObject;
-                            lastPosition = selectedObject.transform.position;
-                            //SpawnArrows();
-                            rightArrow.SetActive(true);
-                            leftArrow.SetActive(true);
-                        }
-                        else
-                        {
-                            selected = false;
-                            selectedObject = null;
-                            lastPosition = new Vector3(0, 0, 0);
-                            rightArrow.SetActive(false);
-                            leftArrow.SetActive(false);
-                        }
-                    }
-                }
-            }
-        }
-
         
     }
 
@@ -171,24 +176,14 @@ public class BuildingFunctionality : MonoBehaviour
             }
         }
     }
-
-    void SpawnArrows()
+    
+    public bool GetBuildMode()
     {
-        curRightArrow = Instantiate(rightArrow);
-
-        curRightArrow.transform.position = selectedObject.transform.position;
-        curRightArrow.transform.position = new Vector3(selectedObject.transform.position.x, selectedObject.transform.position.y + 5,
-            selectedObject.transform.position.z - ((GetComponent<BoxCollider>().size.z) * 10));
-
-        curLeftArrow = Instantiate(leftArrow);
-
-        curLeftArrow.transform.position = selectedObject.transform.position;
-        curLeftArrow.transform.position = new Vector3(selectedObject.transform.position.x, selectedObject.transform.position.y + 5,
-            selectedObject.transform.position.z + ((GetComponent<BoxCollider>().size.z) * 10));
-
-
-        curRightArrow.transform.SetParent(selectedObject.transform);
-        curLeftArrow.transform.SetParent(selectedObject.transform);
+        return inBuildMode;
+    }
+    public void SetBuildMode(bool set)
+    {
+        inBuildMode = set;
     }
 
     public void RotateLeft(bool check)

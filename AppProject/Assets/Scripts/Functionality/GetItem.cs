@@ -20,6 +20,10 @@ public class GetItem : MonoBehaviour
     PointerEventData m_PointerEventData;
     EventSystem m_EventSystem;
 
+    public GameObject InventoryObject;
+    public GameObject buildCanvas;
+
+    public LayerMask whatCanBeTouched;
 
     // Use this for initialization
     void Start ()
@@ -81,8 +85,12 @@ public class GetItem : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                RayToSpawnPos();
                 isSelected = false;
                 transform.GetChild(0).position = startingPos;
+                InventoryObject.SetActive(true);
+                GetComponent<Image>().enabled = true;
+                transform.parent = InventoryObject.transform;               
             }
         }
         else if (Application.platform == RuntimePlatform.Android)
@@ -112,67 +120,58 @@ public class GetItem : MonoBehaviour
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
+                RayToSpawnPos();
                 isSelected = false;
                 transform.GetChild(0).position = startingPos;
+                InventoryObject.SetActive(true);
+                GetComponent<Image>().enabled = true;
+                transform.parent = InventoryObject.transform;
+                RayToSpawnPos();
             }
         }
         if(isSelected)
         {
             //transform.position = Input.GetTouch(0).position;
+            transform.parent = buildCanvas.transform;
+            GetComponent<Image>().enabled = false;
+            InventoryObject.SetActive(false);
             transform.GetChild(0).position = Input.mousePosition;
         }
-
-
-
-
-
-
-
-
-
-        //// Check if there is a touch
-        //if (Application.platform == RuntimePlatform.WindowsEditor)
-        //{
-        //    if(Input.GetMouseButtonDown(0))
-        //    {
-        //        Debug.Log(EventSystem.current.currentSelectedGameObject);
-        //        if (EventSystem.current.IsPointerOverGameObject() && EventSystem.current.currentSelectedGameObject != null)
-        //        {
-        //            Debug.Log("DoingSomething");
-        //                if (EventSystem.current.currentSelectedGameObject.name == gameObject.name)
-        //                {
-
-        //                    isSelected = true;
-        //               }
-
-        //        }
-        //    }
-        //}
-        //else
-        //{
-        //    if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
-        //    {
-        //        // Check if finger is over a UI element 
-        //        if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-        //        {
-        //            isSelected = true;
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("UI is not touched");
-        //            //so here call the methods you call when your other in-game objects are touched 
-        //        }
-        //    }
-        //    else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
-        //    {
-
-        //    }
-        //    else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended || Input.touchCount == 0)
-        //    {
-
-        //    }
-        //}
     }
+
+    private void RayToSpawnPos()
+    {
+        Ray myRay;
+        RaycastHit hitInfo;
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            
+        }
+        else if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
+        else
+        {
+            myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
+        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+        {
+            if (hitInfo.collider.CompareTag("BuildingArea"))
+            {
+                SpawnItem(hitInfo.point);
+            }
+        }
+
+    }
+
+    private void SpawnItem(Vector3 position)
+    {
+        Debug.Log("Trying to spawn");
+        Instantiate(Resources.Load("Items/" + itemName) as GameObject, position, Quaternion.Euler(-90, 0, 90));
+    }
+
 
     public string GetItemName()
     {

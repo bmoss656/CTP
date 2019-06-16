@@ -189,6 +189,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 6
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &18476691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +284,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 7
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &23268256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1432,6 +1442,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 11
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &100254282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4286,7 +4301,7 @@ GameObject:
   - component: {fileID: 206701779}
   m_Layer: 10
   m_Name: BuildManager
-  m_TagString: Untagged
+  m_TagString: BuildingArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4299,7 +4314,7 @@ Transform:
   m_GameObject: {fileID: 206701776}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 32.3, y: 0.13927555, z: -24.8}
-  m_LocalScale: {x: 50.60149, y: 1.15334, z: 33.386166}
+  m_LocalScale: {x: 50.60149, y: 0.48598394, z: 33.386166}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
@@ -6251,7 +6266,7 @@ Prefab:
     - target: {fileID: 114764652779741672, guid: 4499a115b8779db43874d430430b9ae5,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224120076786866392, guid: 4499a115b8779db43874d430430b9ae5,
         type: 2}
@@ -6396,7 +6411,7 @@ Prefab:
     - target: {fileID: 114764652779741672, guid: 4499a115b8779db43874d430430b9ae5,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: DisableObjects
+      value: LoadObjects
       objectReference: {fileID: 0}
     - target: {fileID: 114764652779741672, guid: 4499a115b8779db43874d430430b9ae5,
         type: 2}
@@ -7384,7 +7399,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1056750844640020, guid: af8ba6a6bd322df45b1ec9ecba679422, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af8ba6a6bd322df45b1ec9ecba679422, type: 2}
@@ -7888,7 +7903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &317419881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12254,7 +12269,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1607624451112796, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
@@ -18438,7 +18453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &783378482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23851,6 +23866,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 0
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &994463215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25354,7 +25374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 5, y: -1207}
+  m_AnchoredPosition: {x: -1, y: 747}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1043572819
@@ -25784,6 +25804,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 2
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1067000871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26879,6 +26904,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 4
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1103109256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29647,6 +29677,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 8
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1249559711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31082,6 +31117,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 5
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1334144537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31766,7 +31806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1357687852
 Transform:
   m_ObjectHideFlags: 0
@@ -32708,6 +32748,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 1
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1383149392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33194,6 +33239,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 10
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1401990043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43718,6 +43768,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 3
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1849425936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43896,7 +43951,7 @@ Prefab:
     - target: {fileID: 114764652779741672, guid: 4499a115b8779db43874d430430b9ae5,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224120076786866392, guid: 4499a115b8779db43874d430430b9ae5,
         type: 2}
@@ -46312,6 +46367,11 @@ MonoBehaviour:
   mainInv: {fileID: 1444687569}
   invPosition: 9
   isSelected: 0
+  InventoryObject: {fileID: 1042368245}
+  buildCanvas: {fileID: 317419880}
+  whatCanBeTouched:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1954853071
 MonoBehaviour:
   m_ObjectHideFlags: 0

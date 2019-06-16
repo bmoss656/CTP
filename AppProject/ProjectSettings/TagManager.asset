@@ -9,6 +9,7 @@ TagManager:
   - Inventory
   - EarthStand
   - Placeable
+  - BuildingArea
   layers:
   - Default
   - TransparentFX

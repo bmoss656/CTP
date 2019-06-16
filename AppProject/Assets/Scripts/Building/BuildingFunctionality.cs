@@ -23,7 +23,7 @@ public class BuildingFunctionality : MonoBehaviour
     public GameObject leftArrow;
 
 
-    private bool inBuildMode = false;
+    private bool inBuildMode = true;
 
 	// Use this for initialization
 	void Start ()

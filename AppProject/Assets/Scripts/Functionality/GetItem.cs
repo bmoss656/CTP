@@ -23,12 +23,17 @@ public class GetItem : MonoBehaviour
     public GameObject InventoryObject;
     public GameObject buildCanvas;
 
+    public Transform lastParent;
+
+    public GameObject objectHolder;
+
     public LayerMask whatCanBeTouched;
+
+    private bool isEmpty = true;
 
     // Use this for initialization
     void Start ()
     {
-        itemName = mainInv.GetItem(invPosition);
         SetSprite();
         thisButton = GetComponent<Button>();
 
@@ -39,16 +44,19 @@ public class GetItem : MonoBehaviour
         startingPos = transform.GetChild(0).position;
     }
 
-    void SetSprite()
+    public void SetSprite()
     {
+        itemName = mainInv.GetItem(invPosition);
         if (itemName == "NULL")
         {
             transform.GetChild(0).gameObject.SetActive(false);
+            isEmpty = true;
         }
         else
         {
             //Set image to something
             transform.GetChild(0).gameObject.SetActive(true);
+            isEmpty = false;
         }
     }
 
@@ -56,86 +64,88 @@ public class GetItem : MonoBehaviour
 
     void Update()
     {
-
-        //Check if the left Mouse button is clicked
-        if (Application.platform == RuntimePlatform.WindowsEditor)
+        if (!isEmpty)
         {
-            if (Input.GetMouseButtonDown(0))
+            //Check if the left Mouse button is clicked
+            if (Application.platform == RuntimePlatform.WindowsEditor)
             {
-                m_PointerEventData = new PointerEventData(m_EventSystem);
-                m_PointerEventData.position = Input.mousePosition;
-                List<RaycastResult> results = new List<RaycastResult>();
-                m_Raycaster.Raycast(m_PointerEventData, results);
-
-                foreach (RaycastResult result in results)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log(result.gameObject.name);
-                    if (result.gameObject.name == gameObject.name)
+                    m_PointerEventData = new PointerEventData(m_EventSystem);
+                    m_PointerEventData.position = Input.mousePosition;
+                    List<RaycastResult> results = new List<RaycastResult>();
+                    m_Raycaster.Raycast(m_PointerEventData, results);
+
+                    foreach (RaycastResult result in results)
                     {
-                        if (isSelected)
+                        Debug.Log(result.gameObject.name);
+                        if (result.gameObject.name == gameObject.name)
                         {
-                            isSelected = false;
-                        }
-                        else
-                        {
-                            isSelected = true;
+                            if (isSelected)
+                            {
+                                isSelected = false;
+                            }
+                            else
+                            {
+                                isSelected = true;
+                            }
                         }
                     }
                 }
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                RayToSpawnPos();
-                isSelected = false;
-                transform.GetChild(0).position = startingPos;
-                InventoryObject.SetActive(true);
-                GetComponent<Image>().enabled = true;
-                transform.parent = InventoryObject.transform;               
-            }
-        }
-        else if (Application.platform == RuntimePlatform.Android)
-        {
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                m_PointerEventData = new PointerEventData(m_EventSystem);
-                m_PointerEventData.position = Input.GetTouch(0).position;
-                List<RaycastResult> results = new List<RaycastResult>();
-                m_Raycaster.Raycast(m_PointerEventData, results);
-
-                foreach (RaycastResult result in results)
+                else if (Input.GetMouseButtonUp(0))
                 {
-                    Debug.Log(result.gameObject.name);
-                    if (result.gameObject.name == gameObject.name)
+                    RayToSpawnPos();
+                    isSelected = false;
+                    transform.GetChild(0).position = startingPos;
+                    InventoryObject.SetActive(true);
+                    GetComponent<Image>().enabled = true;
+                    transform.parent = lastParent;
+                    transform.GetComponentInParent<ResetInventory>().ResetInv();
+                }
+            }
+            else if (Application.platform == RuntimePlatform.Android)
+            {
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    m_PointerEventData = new PointerEventData(m_EventSystem);
+                    m_PointerEventData.position = Input.GetTouch(0).position;
+                    List<RaycastResult> results = new List<RaycastResult>();
+                    m_Raycaster.Raycast(m_PointerEventData, results);
+
+                    foreach (RaycastResult result in results)
                     {
-                        if (isSelected)
+                        Debug.Log(result.gameObject.name);
+                        if (result.gameObject.name == gameObject.name)
                         {
-                            isSelected = false;
-                        }
-                        else
-                        {
-                            isSelected = true;
+                            if (isSelected)
+                            {
+                                isSelected = false;
+                            }
+                            else
+                            {
+                                isSelected = true;
+                            }
                         }
                     }
                 }
+                else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    RayToSpawnPos();
+                    isSelected = false;
+                    transform.GetChild(0).position = startingPos;
+                    InventoryObject.SetActive(true);
+                    GetComponent<Image>().enabled = true;
+                    transform.parent = lastParent;
+                    transform.GetComponentInParent<ResetInventory>().ResetInv();
+                }
             }
-            else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            if (isSelected)
             {
-                RayToSpawnPos();
-                isSelected = false;
-                transform.GetChild(0).position = startingPos;
-                InventoryObject.SetActive(true);
-                GetComponent<Image>().enabled = true;
-                transform.parent = InventoryObject.transform;
-                RayToSpawnPos();
+                transform.parent = buildCanvas.transform;
+                GetComponent<Image>().enabled = false;
+                InventoryObject.SetActive(false);
+                transform.GetChild(0).position = Input.mousePosition;
             }
-        }
-        if(isSelected)
-        {
-            //transform.position = Input.GetTouch(0).position;
-            transform.parent = buildCanvas.transform;
-            GetComponent<Image>().enabled = false;
-            InventoryObject.SetActive(false);
-            transform.GetChild(0).position = Input.mousePosition;
         }
     }
 
@@ -161,6 +171,9 @@ public class GetItem : MonoBehaviour
             if (hitInfo.collider.CompareTag("BuildingArea"))
             {
                 SpawnItem(hitInfo.point);
+                mainInv.TakeItem(invPosition);
+                itemName = "NULL";
+                SetSprite();
             }
         }
 
@@ -169,7 +182,9 @@ public class GetItem : MonoBehaviour
     private void SpawnItem(Vector3 position)
     {
         Debug.Log("Trying to spawn");
-        Instantiate(Resources.Load("Items/" + itemName) as GameObject, position, Quaternion.Euler(-90, 0, 90));
+        GameObject spawn = Resources.Load("Items/" + itemName) as GameObject;
+        Instantiate(spawn, position,spawn.transform.rotation , objectHolder.transform);
+        objectHolder.GetComponent<PlacedObjectManager>().AddItem(itemName, position, spawn.transform.rotation.eulerAngles);
     }
 
 

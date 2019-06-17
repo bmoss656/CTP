@@ -7,7 +7,7 @@ public class BuildingFunctionality : MonoBehaviour
     private bool selected = false;
 
 
-    public float speed = 80f;
+    public float speed = 150f;
     private bool rLeft = false;
     private bool rRight = false;
 
@@ -21,7 +21,8 @@ public class BuildingFunctionality : MonoBehaviour
 
     public GameObject rightArrow;
     public GameObject leftArrow;
-
+    public GameObject deSelectUI;
+    public GameObject bulldozer; 
 
     private bool inBuildMode = true;
 
@@ -30,6 +31,9 @@ public class BuildingFunctionality : MonoBehaviour
     {
         rightArrow.SetActive(false);
         leftArrow.SetActive(false);
+        deSelectUI.SetActive(false);
+        bulldozer.SetActive(false);
+
     }
 	
 	// Update is called once per frame
@@ -39,6 +43,14 @@ public class BuildingFunctionality : MonoBehaviour
         {
             if (selected)
             {
+                if (!selectedObject.GetComponent<CollisionChecker>().colliding)
+                {
+                    selectedObject.GetComponent<ChangeTexture>().SetColour(Color.green);
+                }
+                else
+                {
+                    selectedObject.GetComponent<ChangeTexture>().SetColour(Color.red);
+                }
                 FollowTouch();
                 if (rLeft)
                 {
@@ -65,27 +77,18 @@ public class BuildingFunctionality : MonoBehaviour
                             {
                                 if (!selected)
                                 {
-                                    selected = true;
-                                    selectedObject = hitInfo.collider.gameObject;
-                                    lastPosition = selectedObject.transform.position;
-                                    //SpawnArrows();
-                                    rightArrow.SetActive(true);
-                                    leftArrow.SetActive(true);
+                                    Select(hitInfo);
                                 }
                                 else
                                 {
-                                    selected = false;
-                                    selectedObject = null;
-                                    lastPosition = new Vector3(0, 0, 0);
-                                    rightArrow.SetActive(false);
-                                    leftArrow.SetActive(false);
+                                    Deselect();
                                 }
                             }
                         }
                     }
                 }
             }
-            else if (Application.platform == RuntimePlatform.WindowsEditor)
+            else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
             {
 
                 if (Input.GetMouseButtonDown(0))
@@ -98,20 +101,11 @@ public class BuildingFunctionality : MonoBehaviour
                         {
                             if (!selected)
                             {
-                                selected = true;
-                                selectedObject = hitInfo.collider.gameObject;
-                                lastPosition = selectedObject.transform.position;
-                                //SpawnArrows();
-                                rightArrow.SetActive(true);
-                                leftArrow.SetActive(true);
+                                Select(hitInfo);
                             }
                             else
                             {
-                                selected = false;
-                                selectedObject = null;
-                                lastPosition = new Vector3(0, 0, 0);
-                                rightArrow.SetActive(false);
-                                leftArrow.SetActive(false);
+                                Deselect();
                             }
                         }
                     }
@@ -137,20 +131,8 @@ public class BuildingFunctionality : MonoBehaviour
                     }
                 }
             }
-            else if (Input.touchCount == 0)
-            {
-                if (!selectedObject.GetComponent<CollisionChecker>().colliding)
-                {
-                    lastPosition = selectedObject.transform.position;
-                    
-                }
-                else
-                {
-                    selectedObject.transform.position = lastPosition;
-                }
-            }
         }
-        else if (Application.platform == RuntimePlatform.WindowsEditor)
+        else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
         {
 
             if (Input.GetMouseButtonDown(0))
@@ -163,17 +145,7 @@ public class BuildingFunctionality : MonoBehaviour
                 }
 
             }
-            else
-            {
-                if (!selectedObject.GetComponent<CollisionChecker>().colliding)
-                {
-                    lastPosition = selectedObject.transform.position;
-                }
-                else
-                {
-                    selectedObject.transform.position = lastPosition;
-                }
-            }
+            
         }
     }
     
@@ -183,7 +155,12 @@ public class BuildingFunctionality : MonoBehaviour
     }
     public void SetBuildMode(bool set)
     {
+        if (!set)
+        {
+            Deselect();
+        }
         inBuildMode = set;
+        
     }
 
     public void RotateLeft(bool check)
@@ -195,4 +172,53 @@ public class BuildingFunctionality : MonoBehaviour
     {
         rRight = check;
     }
+
+    public void Select(RaycastHit hitInfo)
+    {
+        selected = true;
+        selectedObject = hitInfo.collider.gameObject;
+        lastPosition = selectedObject.transform.position;
+        //SpawnArrows();
+        rightArrow.SetActive(true);
+        leftArrow.SetActive(true);
+        deSelectUI.SetActive(true);
+        bulldozer.SetActive(true);
+        selectedObject.GetComponent<ChangeTexture>().SetColour(Color.green);
+    }
+
+    public void Deselect()
+    {
+        if (selectedObject)
+        {
+            if (selectedObject.GetComponent<CollisionChecker>().colliding)
+            {
+                selectedObject.transform.position = lastPosition;
+            }
+            Debug.Log(selectedObject.transform.GetSiblingIndex());
+            selectedObject.GetComponentInParent<PlacedObjectManager>().SetPosition(selectedObject.transform.position, 
+                                                                            selectedObject.transform.rotation.eulerAngles, 
+                                                                            selectedObject.transform.GetSiblingIndex());
+            selectedObject.GetComponent<ChangeTexture>().ResetMaterial();
+        }
+        selected = false;
+        selectedObject = null;
+        lastPosition = new Vector3(0, 0, 0);
+        rightArrow.SetActive(false);
+        leftArrow.SetActive(false);
+        deSelectUI.SetActive(false);
+        bulldozer.SetActive(false);
+    }
+
+    public void DestroyItem()
+    {
+        selectedObject.GetComponentInParent<PlacedObjectManager>().DeleteItem(selectedObject.transform.GetSiblingIndex());
+        Destroy(selectedObject);
+        selected = false;
+        lastPosition = new Vector3(0, 0, 0);
+        rightArrow.SetActive(false);
+        leftArrow.SetActive(false);
+        deSelectUI.SetActive(false);
+        bulldozer.SetActive(false);
+    }
+
 }

@@ -10,6 +10,7 @@ TagManager:
   - EarthStand
   - Placeable
   - BuildingArea
+  - Door
   layers:
   - Default
   - TransparentFX

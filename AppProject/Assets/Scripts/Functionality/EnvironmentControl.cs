@@ -141,15 +141,15 @@ public class EnvironmentControl : MonoBehaviour
                 activeTree = 0;
                 activeGrass = 0;
                 activeDead = deadTreeCount;
-                activeDeadGrass = deadGrassCount;
-                activeDeadFoliage = 0;
+                activeDeadGrass = deadGrassCount / 2;
+                activeDeadFoliage = deadFoliageCount / 2;
                 break;
             case EnvironmentState.State2:
                 activeFoliage = 0;
                 activeTree = 0;
                 activeGrass = 0;
-                activeDead = deadTreeCount / 2;
-                activeDeadGrass = deadGrassCount / 2;
+                activeDead = deadTreeCount;
+                activeDeadGrass = deadGrassCount;
                 activeDeadFoliage = deadFoliageCount;
                 break;
             case EnvironmentState.State3:

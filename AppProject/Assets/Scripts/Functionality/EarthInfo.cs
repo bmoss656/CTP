@@ -55,7 +55,9 @@ public class EarthInfo : MonoBehaviour
 
     void OpenUI()
     {
-        infoCan.SetActive(true);
+        //Enable/disable info ui and rotate buttons
+        GetComponent<ObjectLoading>().LoadObjects();
+        GetComponent<ObjectLoading>().DisableObjects();
         setInfo = infoCan.GetComponent<SetInformation>();
         setInfo.SetCurrentInfo(num);
         setInfo.SetText();

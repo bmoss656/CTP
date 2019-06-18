@@ -24,7 +24,7 @@ public class BuildingFunctionality : MonoBehaviour
     public GameObject deSelectUI;
     public GameObject bulldozer; 
 
-    private bool inBuildMode = true;
+    private bool inBuildMode = false;
 
 	// Use this for initialization
 	void Start ()
@@ -54,11 +54,25 @@ public class BuildingFunctionality : MonoBehaviour
                 FollowTouch();
                 if (rLeft)
                 {
-                    selectedObject.transform.Rotate(Vector3.up, speed * Time.deltaTime);
+                    if(selectedObject.transform.rotation.x == 0)
+                    {
+                        selectedObject.transform.Rotate(Vector3.up, speed * Time.deltaTime);
+                    }
+                    else
+                    {
+                        selectedObject.transform.Rotate(Vector3.forward, speed * Time.deltaTime);
+                    }
                 }
                 else if (rRight)
                 {
-                    selectedObject.transform.Rotate(Vector3.down, speed * Time.deltaTime);
+                    if (selectedObject.transform.rotation.x == 0)
+                    {
+                        selectedObject.transform.Rotate(Vector3.down, speed * Time.deltaTime);
+                    }
+                    else
+                    {
+                        selectedObject.transform.Rotate(Vector3.back, speed * Time.deltaTime);
+                    }
                 }
                 return;
             }
@@ -121,7 +135,7 @@ public class BuildingFunctionality : MonoBehaviour
         {
             if ((Input.touchCount > 0))
             {
-                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                if (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved)
                 {
                     Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                     RaycastHit hitInfo;
@@ -135,7 +149,7 @@ public class BuildingFunctionality : MonoBehaviour
         else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
         {
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitInfo;

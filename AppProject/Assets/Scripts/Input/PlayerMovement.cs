@@ -7,21 +7,12 @@ public class PlayerMovement : MonoBehaviour
 {
     public LayerMask whatCanBeTouched;
     public GameObject closeCam;
-    public GameObject taskList;
     private NavMeshAgent myAgent;
     private Rigidbody rb;
 
+    public GameObject doorButton;
+
     private Animator m_animator;
-    [SerializeField] private float m_moveSpeed = 2;
-    [SerializeField] private float m_turnSpeed = 200;
-
-    private float m_currentV = 0;
-    private float m_currentH = 0;
-
-    private readonly float m_interpolation = 10;
-    private readonly float m_walkScale = 0.33f;
-    private readonly float m_backwardsWalkScale = 0.16f;
-    private readonly float m_backwardRunScale = 0.66f;
 
     private bool m_isGrounded;
     public bool canMove = true;
@@ -56,6 +47,10 @@ public class PlayerMovement : MonoBehaviour
                             {
                                 myAgent.SetDestination(hitInfo.point);
                             }
+                            else if (hitInfo.collider.tag == "Door")
+                            {
+                                doorButton.SetActive(!doorButton.activeSelf);
+                            }
                         }
                     }
                     else if(Input.GetTouch(0).phase == TouchPhase.Moved)
@@ -69,11 +64,15 @@ public class PlayerMovement : MonoBehaviour
                             {
                                 myAgent.SetDestination(hitInfo.point);
                             }
+                            else if(hitInfo.collider.tag == "Door")
+                            {
+                                doorButton.SetActive(!doorButton.activeSelf);
+                            }
                         }
                     }
                 }
             }
-            else if (Application.platform == RuntimePlatform.WindowsEditor)
+            else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
             {
                 if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
@@ -86,6 +85,10 @@ public class PlayerMovement : MonoBehaviour
                             if (hitInfo.collider.tag == "Ground")
                             {
                                 myAgent.SetDestination(hitInfo.point);
+                            }
+                            else if (hitInfo.collider.tag == "Door")
+                            {
+                                doorButton.SetActive(!doorButton.activeSelf);
                             }
                         }
                     }

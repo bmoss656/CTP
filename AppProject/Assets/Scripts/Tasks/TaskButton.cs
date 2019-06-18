@@ -15,7 +15,7 @@ public class TaskButton : MonoBehaviour
     private PlayerControl pc;
 
     public bool weeklyTask = false;
-    public int weeklyCount;
+    public int weeklyCount = 0;
     public int curDate;
 
     private bool[] weeklyActive;

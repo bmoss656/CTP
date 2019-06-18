@@ -101,11 +101,17 @@ public class PlayerMovement : MonoBehaviour
         m_animator.SetBool("Walking", shouldMove);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Ground")
         {
             m_isGrounded = true;
+        }
+        if(other.gameObject.tag == "Placeable")
+        {
+            m_animator.SetBool("Walking", false);
+            myAgent.isStopped = true;
+            myAgent.ResetPath();
         }
     }
 

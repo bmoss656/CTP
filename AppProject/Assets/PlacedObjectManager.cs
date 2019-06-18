@@ -32,6 +32,8 @@ public class PlacedObjectManager : MonoBehaviour
     public List<Vector3Holder> itemRotations;
     private int itemCount = 0;
 
+    public bool isHouse = false;
+
     private void OnEnable()
     {
         Load();
@@ -58,6 +60,10 @@ public class PlacedObjectManager : MonoBehaviour
         holder2.Fill(rotation);
         itemRotations.Add(holder2);
         itemCount++;
+        if (isHouse)
+        {
+            SetSize();
+        }
     }
 
     public void DeleteItem(int itemIndex)
@@ -77,6 +83,10 @@ public class PlacedObjectManager : MonoBehaviour
                 Instantiate(Resources.Load("Items/" + placedItems[i]) as GameObject, itemLocations[i].vector, Quaternion.Euler(itemRotations[i].vector), transform);
             }
         }
+        if (isHouse)
+        {
+            SetSize();
+        }
     }
 
     public void SetPosition(Vector3 pos, Vector3 rot, int itemIndex)
@@ -90,78 +100,169 @@ public class PlacedObjectManager : MonoBehaviour
         itemRotations[itemIndex] = holder2;
     }
 
+    public void SetSize()
+    {
+        for(int i = 0; i< transform.childCount; i++)
+        {
+            transform.GetChild(i).transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
+
     public void Save()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/outsidePlacedData.dat", FileMode.Create);
-
-        OutsidePlacedData data = new OutsidePlacedData();
-
-        data.itemCount = itemCount;
-
-        data.placedItems = new List<string>(placedItems.Count);
-        for (int i = 0; i < placedItems.Count; i++)
+        
+        if (!isHouse)
         {
-            data.placedItems.Add(placedItems[i]);
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/outsidePlacedData.dat", FileMode.Create);
+
+            OutsidePlacedData data = new OutsidePlacedData();
+            data.itemCount = itemCount;
+
+            data.placedItems = new List<string>(placedItems.Count);
+            for (int i = 0; i < placedItems.Count; i++)
+            {
+                data.placedItems.Add(placedItems[i]);
+            }
+
+            data.itemLocations = new List<Vector3Holder>(itemLocations.Count);
+            for (int i = 0; i < itemLocations.Count; i++)
+            {
+                data.itemLocations.Add(itemLocations[i]);
+            }
+
+            data.itemRotations = new List<Vector3Holder>(itemRotations.Count);
+            for (int i = 0; i < itemRotations.Count; i++)
+            {
+                data.itemRotations.Add(itemRotations[i]);
+            }
+
+            bf.Serialize(file, data);
+            file.Close();
+        }
+        else
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/housePlacedData.dat", FileMode.Create);
+
+            HousePlacedData data = new HousePlacedData();
+            data.itemCount = itemCount;
+
+            data.placedItems = new List<string>(placedItems.Count);
+            for (int i = 0; i < placedItems.Count; i++)
+            {
+                data.placedItems.Add(placedItems[i]);
+            }
+
+            data.itemLocations = new List<Vector3Holder>(itemLocations.Count);
+            for (int i = 0; i < itemLocations.Count; i++)
+            {
+                data.itemLocations.Add(itemLocations[i]);
+            }
+
+            data.itemRotations = new List<Vector3Holder>(itemRotations.Count);
+            for (int i = 0; i < itemRotations.Count; i++)
+            {
+                data.itemRotations.Add(itemRotations[i]);
+            }
+
+            bf.Serialize(file, data);
+            file.Close();
         }
 
-        data.itemLocations = new List<Vector3Holder>(itemLocations.Count);
-        for (int i = 0; i < itemLocations.Count; i++)
-        {
-            data.itemLocations.Add(itemLocations[i]);
-        }
-
-        data.itemRotations = new List<Vector3Holder>(itemRotations.Count);
-        for (int i = 0; i < itemRotations.Count; i++)
-        {
-            data.itemRotations.Add(itemRotations[i]);
-        }
-
-        bf.Serialize(file, data);
-        file.Close();
+        
     }
 
     public void Load()
     {
-        if (File.Exists(Application.persistentDataPath + "/inventoryInfo.dat"))
+        if (!isHouse)
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/outsidePlacedData.dat", FileMode.Open);
-
-            OutsidePlacedData data = (OutsidePlacedData)bf.Deserialize(file);
-            file.Close();
-
-            itemCount = data.itemCount;
-            placedItems = new List<string>(data.placedItems.Count);
-            for (int i = 0; i < data.placedItems.Count; i++)
+            if (File.Exists(Application.persistentDataPath + "/outsidePlacedData.dat"))
             {
-                placedItems.Add(data.placedItems[i]);
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/outsidePlacedData.dat", FileMode.Open);
+
+                OutsidePlacedData data = (OutsidePlacedData)bf.Deserialize(file);
+                file.Close();
+
+                itemCount = data.itemCount;
+                placedItems = new List<string>(data.placedItems.Count);
+                for (int i = 0; i < data.placedItems.Count; i++)
+                {
+                    placedItems.Add(data.placedItems[i]);
+                }
+
+                itemLocations = new List<Vector3Holder>(data.itemLocations.Count);
+                for (int i = 0; i < data.itemLocations.Count; i++)
+                {
+                    itemLocations.Add(data.itemLocations[i]);
+                }
+
+                itemRotations = new List<Vector3Holder>(data.itemRotations.Count);
+                for (int i = 0; i < data.itemRotations.Count; i++)
+                {
+                    itemRotations.Add(data.itemRotations[i]);
+                }
             }
-
-            itemLocations = new List<Vector3Holder>(data.itemLocations.Count);
-            for (int i = 0; i < data.itemLocations.Count; i++)
+            else
             {
-                itemLocations.Add(data.itemLocations[i]);
-            }
+                placedItems = new List<string>();
+                itemLocations = new List<Vector3Holder>();
+                itemRotations = new List<Vector3Holder>();
 
-            itemRotations = new List<Vector3Holder>(data.itemRotations.Count);
-            for (int i = 0; i < data.itemRotations.Count; i++)
-            {
-                itemRotations.Add(data.itemRotations[i]);
             }
         }
         else
         {
-            placedItems = new List<string>();
-            itemLocations = new List<Vector3Holder>();
-            itemRotations = new List<Vector3Holder>();
+            if (File.Exists(Application.persistentDataPath + "/housePlacedData.dat"))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/housePlacedData.dat", FileMode.Open);
 
+                HousePlacedData data = (HousePlacedData)bf.Deserialize(file);
+                file.Close();
+
+                itemCount = data.itemCount;
+                placedItems = new List<string>(data.placedItems.Count);
+                for (int i = 0; i < data.placedItems.Count; i++)
+                {
+                    placedItems.Add(data.placedItems[i]);
+                }
+
+                itemLocations = new List<Vector3Holder>(data.itemLocations.Count);
+                for (int i = 0; i < data.itemLocations.Count; i++)
+                {
+                    itemLocations.Add(data.itemLocations[i]);
+                }
+
+                itemRotations = new List<Vector3Holder>(data.itemRotations.Count);
+                for (int i = 0; i < data.itemRotations.Count; i++)
+                {
+                    itemRotations.Add(data.itemRotations[i]);
+                }
+            }
+            else
+            {
+                placedItems = new List<string>();
+                itemLocations = new List<Vector3Holder>();
+                itemRotations = new List<Vector3Holder>();
+
+            }
         }
     }
 }
 
 [Serializable]
 class OutsidePlacedData
+{
+    public List<string> placedItems;
+    public List<Vector3Holder> itemLocations;
+    public List<Vector3Holder> itemRotations;
+    public int itemCount;
+}
+
+[Serializable]
+class HousePlacedData
 {
     public List<string> placedItems;
     public List<Vector3Holder> itemLocations;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     public GameObject doorButton;
+    public RectTransform bar;
 
     private Animator m_animator;
 
@@ -34,22 +36,24 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Application.platform == RuntimePlatform.Android && Input.touchCount > 0)
             {
-                if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                if (!CheckOver())
                 {
                     if (Input.GetTouch(0).phase == TouchPhase.Began)
                     {
                         Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                         RaycastHit hitInfo;
-
-                        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+                        if (!bar.rect.Contains(Input.GetTouch(0).position))
                         {
-                            if (hitInfo.collider.tag == "Ground")
+                            if (Physics.Raycast(myRay, out hitInfo, 30f, whatCanBeTouched))
                             {
-                                myAgent.SetDestination(hitInfo.point);
-                            }
-                            else if (hitInfo.collider.tag == "Door")
-                            {
-                                doorButton.SetActive(!doorButton.activeSelf);
+                                if (hitInfo.collider.tag == "Ground")
+                                {
+                                    myAgent.SetDestination(hitInfo.point);
+                                }
+                                else if (hitInfo.collider.tag == "Door")
+                                {
+                                    doorButton.SetActive(!doorButton.activeSelf);
+                                }
                             }
                         }
                     }
@@ -57,16 +61,14 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                         RaycastHit hitInfo;
-
-                        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+                        if (!bar.rect.Contains(Input.GetTouch(0).position))
                         {
-                            if (hitInfo.collider.tag == "Ground")
+                            if (Physics.Raycast(myRay, out hitInfo, 20f, whatCanBeTouched))
                             {
-                                myAgent.SetDestination(hitInfo.point);
-                            }
-                            else if(hitInfo.collider.tag == "Door")
-                            {
-                                doorButton.SetActive(!doorButton.activeSelf);
+                                if (hitInfo.collider.tag == "Ground")
+                                {
+                                    myAgent.SetDestination(hitInfo.point);
+                                }
                             }
                         }
                     }
@@ -74,13 +76,13 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
             {
-                if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     if (Input.GetMouseButton(0))
                     {
                         Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
                         RaycastHit hitInfo;
-                        if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
+                        if (Physics.Raycast(myRay, out hitInfo, 20f, whatCanBeTouched))
                         {
                             if (hitInfo.collider.tag == "Ground")
                             {
@@ -90,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
                             {
                                 doorButton.SetActive(!doorButton.activeSelf);
                             }
+                            
                         }
                     }
                 }
@@ -121,6 +124,23 @@ public class PlayerMovement : MonoBehaviour
         {
             m_isGrounded = true;
         }
+    }
+
+    private bool CheckOver()
+    {
+        bool check = false;
+
+        for(int i = 0; i < Input.touchCount; i++)
+        {
+            check = EventSystem.current.IsPointerOverGameObject(Input.GetTouch(i).fingerId);
+            if(check)
+            {
+                break;
+            }
+        }
+
+
+        return check;
     }
 
     public void SetMove(bool set)

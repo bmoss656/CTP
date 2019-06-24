@@ -36,14 +36,13 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Application.platform == RuntimePlatform.Android && Input.touchCount > 0)
             {
-                if (!CheckOver())
+                if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 {
                     if (Input.GetTouch(0).phase == TouchPhase.Began)
                     {
                         Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                         RaycastHit hitInfo;
-                        if (!bar.rect.Contains(Input.GetTouch(0).position))
-                        {
+                        
                             if (Physics.Raycast(myRay, out hitInfo, 30f, whatCanBeTouched))
                             {
                                 if (hitInfo.collider.tag == "Ground")
@@ -55,14 +54,13 @@ public class PlayerMovement : MonoBehaviour
                                     doorButton.SetActive(!doorButton.activeSelf);
                                 }
                             }
-                        }
+                        
                     }
                     else if(Input.GetTouch(0).phase == TouchPhase.Moved)
                     {
                         Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                         RaycastHit hitInfo;
-                        if (!bar.rect.Contains(Input.GetTouch(0).position))
-                        {
+                        
                             if (Physics.Raycast(myRay, out hitInfo, 20f, whatCanBeTouched))
                             {
                                 if (hitInfo.collider.tag == "Ground")
@@ -70,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
                                     myAgent.SetDestination(hitInfo.point);
                                 }
                             }
-                        }
+                        
                     }
                 }
             }

@@ -8463,6 +8463,16 @@ Prefab:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RotateRight
       objectReference: {fileID: 0}
+    - target: {fileID: 224158408805166300, guid: 447acc2627c743d43a00865d81fa9499,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -424
+      objectReference: {fileID: 0}
+    - target: {fileID: 224607404486550036, guid: 447acc2627c743d43a00865d81fa9499,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 428
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 447acc2627c743d43a00865d81fa9499, type: 2}
   m_IsPrefabAsset: 0

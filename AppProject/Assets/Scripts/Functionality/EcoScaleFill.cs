@@ -46,6 +46,18 @@ public class EcoScaleFill : MonoBehaviour
         //else
         //{
             house.fillAmount = currentXP / 10000;
+        if(house.fillAmount < 0.2)
+        {
+            house.color = Color.red;
+        }
+        else if(house.fillAmount < 0.5)
+        {
+            house.color = Color.yellow;
+        }
+        else
+        {
+            house.color = Color.green;
+        }
         //}
     }
 }

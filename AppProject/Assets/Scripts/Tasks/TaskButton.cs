@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -14,7 +15,7 @@ public class TaskButton : MonoBehaviour
     private PlayerControl pc;
 
     public bool weeklyTask = false;
-    public int weeklyCount;
+    public int weeklyCount = 0;
     public int curDate;
 
     private bool[] weeklyActive;
@@ -65,11 +66,13 @@ public class TaskButton : MonoBehaviour
         {
             if(date[i] != int.Parse(actualDay[1]))
             {
-                buttons[i].SetActive(true);
+                //buttons[i].SetActive(true);
+                buttons[i].GetComponent<Button>().interactable = true;
             }
             else
             {
-                buttons[i].SetActive(false);
+                //buttons[i].SetActive(false);
+                buttons[i].GetComponent<Button>().interactable = false;
             }
         }
 
@@ -116,7 +119,7 @@ public class TaskButton : MonoBehaviour
             pc.LoseExp(weeklyTasksDone * 200);
             for (int i = 0; i< 5; i++)
             {
-                buttons[i].SetActive(true);
+                buttons[i].GetComponent<Button>().interactable = true;
                 weeklyActive[i] = true;
             }
         }
@@ -125,11 +128,11 @@ public class TaskButton : MonoBehaviour
         {
             if(weeklyActive[i])
             {
-                buttons[i].SetActive(true);
+                buttons[i].GetComponent<Button>().interactable = true;
             }
             else
             {
-                buttons[i].SetActive(false);
+                buttons[i].GetComponent<Button>().interactable = false;
             }
         }
     }
@@ -141,11 +144,13 @@ public class TaskButton : MonoBehaviour
         string[] actualDay = day.Split('/');
 
         date[buttonNum] = int.Parse(actualDay[1]);
+        CheckDay();
     }
 
     public void ButtonPressedWeek(int buttonNum)
     {
         weeklyActive[buttonNum] = false;
+        CheckWeek();
     }
 
 
@@ -179,6 +184,16 @@ public class TaskButton : MonoBehaviour
             weeklyActive = data.weeklyActive;
             weeklyCount = data.weeklyCount;
             curDate = data.curDate;
+        }
+    }
+
+    public void ResetButtons()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            buttons[i].GetComponent<Button>().interactable = true;
+            date[i] = 100;
+            weeklyCount = 100;
         }
     }
 

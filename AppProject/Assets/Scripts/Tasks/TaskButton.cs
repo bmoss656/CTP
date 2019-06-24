@@ -25,6 +25,7 @@ public class TaskButton : MonoBehaviour
 
     private void OnEnable()
     {
+        pc = PlayerControl.instance;
         date = new int[5];
         weeklyActive = new bool[5];
         for(int i = 0;i<5;i++)
@@ -43,7 +44,7 @@ public class TaskButton : MonoBehaviour
     }
     private void Start()
     {
-        pc = PlayerControl.instance;
+        
     }
 
     private void OnApplicationQuit()

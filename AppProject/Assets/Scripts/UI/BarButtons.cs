@@ -26,4 +26,12 @@ public class BarButtons : MonoBehaviour
 
     }
 
+
+    public void ResetPath()
+    {
+        if (agent)
+        {
+            agent.ResetPath();
+        }
+    }
 }

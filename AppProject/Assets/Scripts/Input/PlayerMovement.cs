@@ -2,25 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
     public LayerMask whatCanBeTouched;
     public GameObject closeCam;
-    public GameObject taskList;
     private NavMeshAgent myAgent;
+    private Rigidbody rb;
+
+    public GameObject doorButton;
+    public RectTransform bar;
 
     private Animator m_animator;
-    [SerializeField] private float m_moveSpeed = 2;
-    [SerializeField] private float m_turnSpeed = 200;
-
-    private float m_currentV = 0;
-    private float m_currentH = 0;
-
-    private readonly float m_interpolation = 10;
-    private readonly float m_walkScale = 0.33f;
-    private readonly float m_backwardsWalkScale = 0.16f;
-    private readonly float m_backwardRunScale = 0.66f;
 
     private bool m_isGrounded;
     public bool canMove = true;
@@ -30,134 +24,122 @@ public class PlayerMovement : MonoBehaviour
     {
         myAgent = GetComponent<NavMeshAgent>();
         m_animator = GetComponent<Animator>();
+        m_isGrounded = true;
+        rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         
-
         m_animator.SetBool("Grounded", m_isGrounded);
         if (canMove)
         {
-            //OnPlayerTouch();
-            if (Application.platform == RuntimePlatform.Android && canMove)
+            if (Application.platform == RuntimePlatform.Android && Input.touchCount > 0)
             {
-                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 {
-                    Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                    RaycastHit hitInfo;
-
-                    if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                    if (Input.GetTouch(0).phase == TouchPhase.Began)
                     {
-                        myAgent.SetDestination(hitInfo.point);
+                        Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                        RaycastHit hitInfo;
+                        
+                            if (Physics.Raycast(myRay, out hitInfo, 30f, whatCanBeTouched))
+                            {
+                                if (hitInfo.collider.tag == "Ground")
+                                {
+                                    myAgent.SetDestination(hitInfo.point);
+                                }
+                                else if (hitInfo.collider.tag == "Door")
+                                {
+                                    doorButton.SetActive(!doorButton.activeSelf);
+                                }
+                            }
+                        
+                    }
+                    else if(Input.GetTouch(0).phase == TouchPhase.Moved)
+                    {
+                        Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                        RaycastHit hitInfo;
+                        
+                            if (Physics.Raycast(myRay, out hitInfo, 20f, whatCanBeTouched))
+                            {
+                                if (hitInfo.collider.tag == "Ground")
+                                {
+                                    myAgent.SetDestination(hitInfo.point);
+                                }
+                            }
+                        
                     }
                 }
             }
-            else if(canMove)
+            else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hitInfo;
-                    if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeTouched))
+                    if (Input.GetMouseButton(0))
                     {
-                        myAgent.SetDestination(hitInfo.point);
+                        Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit hitInfo;
+                        if (Physics.Raycast(myRay, out hitInfo, 20f, whatCanBeTouched))
+                        {
+                            if (hitInfo.collider.tag == "Ground")
+                            {
+                                myAgent.SetDestination(hitInfo.point);
+                            }
+                            else if (hitInfo.collider.tag == "Door")
+                            {
+                                doorButton.SetActive(!doorButton.activeSelf);
+                            }
+                            
+                        }
                     }
                 }
             }  
         }
 
-        if(myAgent.velocity.x > 0.1f || myAgent.velocity.z > 0.1f)
+        bool shouldMove = myAgent.velocity.magnitude > 0.5f && myAgent.remainingDistance > myAgent.radius;
+
+        m_animator.SetBool("Walking", shouldMove);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Ground")
         {
-            m_animator.SetBool("Walking", true);
+            m_isGrounded = true;
         }
-        else
+        if(other.gameObject.tag == "Placeable")
         {
             m_animator.SetBool("Walking", false);
+            myAgent.isStopped = true;
+            myAgent.ResetPath();
         }
-        //float v = Input.GetAxis("Vertical");
-        //float h = Input.GetAxis("Horizontal");
-
-        //bool walk = Input.GetKey(KeyCode.LeftShift);
-
-        //if (v < 0)
-        //{
-        //    if (walk) { v *= m_backwardsWalkScale; }
-        //    else { v *= m_backwardRunScale; }
-        //}
-        //else if (walk)
-        //{
-        //    v *= m_walkScale;
-        //}
-
-        //m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
-        //m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
-
-        //transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
-        //transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
-
-        //m_animator.SetFloat("MoveSpeed", m_currentV);
-
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Ground")
         {
             m_isGrounded = true;
         }
     }
-    private void OnCollisionStay(Collision collision)
+
+    private bool CheckOver()
     {
-        if(collision.gameObject.tag == "Ground")
+        bool check = false;
+
+        for(int i = 0; i < Input.touchCount; i++)
         {
-            m_isGrounded = true;
+            check = EventSystem.current.IsPointerOverGameObject(Input.GetTouch(i).fingerId);
+            if(check)
+            {
+                break;
+            }
         }
 
+
+        return check;
     }
-
-    //private void OnPlayerTouch()
-    //{
-    //    if (Application.platform == RuntimePlatform.Android)
-    //    {
-    //        if (Input.GetTouch(0).phase == TouchPhase.Began)
-    //        {
-    //            Ray myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-    //            RaycastHit hitInfo;
-
-    //            if (Physics.Raycast(myRay, out hitInfo, 100))
-    //            {
-    //                if(hitInfo.collider.tag == "Player")
-    //                {
-    //                    GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-    //                    closeCam.SetActive(true);
-    //                    canMove = false;
-    //                    taskList.SetActive(true);
-    //                }
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if(Input.GetMouseButtonDown(0))
-    //        {
-    //            Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //            RaycastHit hitInfo;
-
-    //            if (Physics.Raycast(myRay, out hitInfo, 100))
-    //            {
-    //                if (hitInfo.collider.tag == "Player")
-    //                {
-
-    //                    GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-    //                    closeCam.SetActive(true);
-    //                    canMove = false;
-    //                    taskList.SetActive(true);
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
 
     public void SetMove(bool set)
     {

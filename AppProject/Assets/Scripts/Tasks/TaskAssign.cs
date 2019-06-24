@@ -23,14 +23,14 @@ public class TaskAssign : MonoBehaviour
 
         taskLength = tasksRead.Length;
 
-        if(!saved.assignedTasks)
-        {
+        //if(!saved.assignedTasks)
+       // {
             for(int i = 0;i <5;i++ )
             {
                 textObjects[i].text = tasksRead[i];
             }
-            saved.assignedTasks = true;
-        }
+            //saved.assignedTasks = true;
+        //}
     }
 	
 	// Update is called once per frame

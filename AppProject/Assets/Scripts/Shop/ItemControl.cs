@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ItemControl : MonoBehaviour
 {
+    private static ItemControl m_instance;
+    public static ItemControl instance { get { return m_instance; } }
+
+
     public List<GameObject> items;
 
     public GameObject currentObj;
@@ -12,12 +16,16 @@ public class ItemControl : MonoBehaviour
     public int objectNum = 0;
     private int maxNum = 0;
     private int shopNum = 0;
+    private void OnEnable()
+    {
+        m_instance = this;
+    }
 
-    
     private void OnDisable()
     {
         this.gameObject.SetActive(false);
         Destroy(currentObj);
+        currentObj = null;
     }
 
 
@@ -62,4 +70,9 @@ public class ItemControl : MonoBehaviour
         }
     }
 
+    public GameObject GetCurrentItem()
+    {
+        return currentObj.transform.GetChild(objectNum).gameObject;
+    }
+    
 }

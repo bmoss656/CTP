@@ -8,7 +8,7 @@ public class SwitchPage : MonoBehaviour
     private int maxObjects;
     private int currentObj = 0;
 	// Use this for initialization
-	void Start ()
+	void OnEnable ()
     {
         buttons = new List<GameObject>();
 	}

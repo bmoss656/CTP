@@ -23,21 +23,21 @@ public class TaskAssign : MonoBehaviour
         tasksRead = taskList.text.Split('\n');
 
         taskLength = tasksRead.Length;
-        //if (!daily)
-        //{
-            //if(!saved.assignedTasks)
-            // {
-            for (int i = 0; i < 5; i++)
+        if (!daily)
+        {
+            if (!saved.assignedTasks)
             {
-                textObjects[i].text = tasksRead[i];
+                for (int i = 0; i < 5; i++)
+                {
+                    textObjects[i].text = tasksRead[i];
+                }
+                saved.assignedTasks = true;
             }
-            //saved.assignedTasks = true;
-            //}
-        //}
-        //else
-        //{
-        //    GetComponent<TaskButton>().SetTastText();
-        //}
+        }
+        else
+        {
+            GetComponent<TaskButton>().SetTastText();
+        }
     }
 	
 

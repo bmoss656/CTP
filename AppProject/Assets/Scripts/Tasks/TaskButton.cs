@@ -144,6 +144,12 @@ public class TaskButton : MonoBehaviour
 
     public void SetString(string task)
     {
+        Debug.Log(selectionCount);
+        Debug.Log(task);
+        if(selectionCount == 0)
+        {
+            tasksToSave = new string[5];
+        }
         tasksToSave[selectionCount] = task;
         if(selectionCount == 4)
         {

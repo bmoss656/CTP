@@ -1,16 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
 
 public class SpawnTaskOptions : MonoBehaviour
 {
     public TextAsset taskList;
     public GameObject buttonPrefab;
+    public TaskButton tasks;
     
     public string[] tasksRead;
     private int taskLength;
 
     private int tasksToSpawn;
+
+    
 
     // Use this for initialization
     void Start ()
@@ -52,9 +58,15 @@ public class SpawnTaskOptions : MonoBehaviour
 
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void SetSelected(Button but, string text)
+    {
+        if (tasks.selectionCount < 5)
+        {
+            Debug.Log(text);
+            tasks.SetString(text);
+            tasks.selectionCount++;
+            but.interactable = false;
+        }
+    }
 }

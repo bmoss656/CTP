@@ -132,6 +132,7 @@ public class TaskButton : MonoBehaviour
         string[] actualDay = day.Split('/');
 
         date[buttonNum] = int.Parse(actualDay[1]);
+        Debug.Log(actualDay[1]);
         CheckDay();
     }
 

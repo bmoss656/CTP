@@ -9,12 +9,12 @@ public class ButtonParticle : MonoBehaviour
 
     private void Start()
     {
-        particles = GetComponent<ParticleSystem>();
+       // particles = GetComponent<ParticleSystem>();
     }
 
     public void ParticleBurst()
     {
-        particles.Play();
+        Instantiate(particles, transform.position, particles.transform.rotation, transform);
     }
 
 }

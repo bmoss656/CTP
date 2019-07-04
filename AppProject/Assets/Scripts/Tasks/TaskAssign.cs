@@ -16,26 +16,36 @@ public class TaskAssign : MonoBehaviour
 
     private int taskLength;
 
-	// Use this for initialization
+    public bool daily;
+
 	void Start ()
     {
         tasksRead = taskList.text.Split('\n');
 
         taskLength = tasksRead.Length;
-
-        //if(!saved.assignedTasks)
-       // {
-            for(int i = 0;i <5;i++ )
+        if (!daily)
+        {
+            if (!saved.assignedTasks)
             {
-                textObjects[i].text = tasksRead[i];
+                for (int i = 0; i < 5; i++)
+                {
+                    textObjects[i].text = tasksRead[i];
+                }
+                saved.assignedTasks = true;
             }
-            //saved.assignedTasks = true;
-        //}
+        }
+        else
+        {
+            GetComponent<TaskButton>().SetTastText();
+        }
     }
 	
-	// Update is called once per frame
-	void Update ()
+
+    public void SetStrings(string[] tasks)
     {
-		
-	}
+        for (int i = 0; i < 5; i++)
+        {
+            textObjects[i].text = tasks[i];
+        }
+    }
 }

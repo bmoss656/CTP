@@ -12,6 +12,7 @@ TagManager:
   - BuildingArea
   - Door
   - UI
+  - DailyTasks
   layers:
   - Default
   - TransparentFX

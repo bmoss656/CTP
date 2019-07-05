@@ -8,8 +8,6 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance {get { return instance; } }
 
     public AudioClip backgroundMusic;
-    public AudioClip buttonClick;
-    public AudioClip confirm;
 
     public AudioSource audSource;
     public AudioSource effectsSource;
@@ -43,7 +41,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayClip(AudioClip clip)
     {
-        effectsSource.clip = confirm;
+        effectsSource.clip = clip;
         effectsSource.Play();
     }
 

@@ -13,6 +13,7 @@ public class TaskButton : MonoBehaviour
 
     public GameObject[] buttons;
     public GameObject doneButton;
+    private AudioClip taskSound;
     private PlayerControl pc;
 
     public bool weeklyTask = false;
@@ -27,14 +28,15 @@ public class TaskButton : MonoBehaviour
     private int dailyTasksDone = 5;
     private int weeklyTasksDone = 5;
 
-
+    private void Start()
+    {
+        taskSound = Resources.Load("Sound/Success", typeof(AudioClip)) as AudioClip;
+    }
 
     private void OnEnable()
     {
         pc = PlayerControl.instance;
 
-
-        Debug.Log(date);
         Load();
 
         if (!weeklyTask)
@@ -137,12 +139,14 @@ public class TaskButton : MonoBehaviour
 
         date[buttonNum] = int.Parse(actualDay[1]);
         Debug.Log(date[buttonNum]);
+        SoundManager.Instance.PlayClip(taskSound);
         CheckDay();
     }
 
     public void ButtonPressedWeek(int buttonNum)
     {
         weeklyActive[buttonNum] = false;
+        SoundManager.Instance.PlayClip(taskSound);
         CheckWeek();
     }
 
@@ -164,10 +168,6 @@ public class TaskButton : MonoBehaviour
 
     public void SetTastText()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            Debug.Log(tasksToSave[i]);
-        }
         GetComponent<TaskAssign>().SetStrings(tasksToSave);
     }
 

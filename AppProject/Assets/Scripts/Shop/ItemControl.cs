@@ -26,11 +26,14 @@ public class ItemControl : MonoBehaviour
         this.gameObject.SetActive(false);
         Destroy(currentObj);
         currentObj = null;
+        objectNum = 0;
+
     }
 
 
     public void ActivateItems(int i)
     {
+        objectNum = 0;
         maxNum = items[i].transform.childCount - 1;
         shopNum = i;
         this.gameObject.SetActive(true);
@@ -52,6 +55,10 @@ public class ItemControl : MonoBehaviour
             currentObj.transform.GetChild(objectNum).gameObject.SetActive(true);
         }
        
+        if(objectNum > maxNum)
+        {
+            objectNum = maxNum;
+        }
     }
 
     public void PreviousObject()
@@ -67,6 +74,11 @@ public class ItemControl : MonoBehaviour
             currentObj.transform.GetChild(objectNum).gameObject.SetActive(false);
             objectNum -= 1;
             currentObj.transform.GetChild(objectNum).gameObject.SetActive(true);
+        }
+
+        if(objectNum < 0)
+        {
+            objectNum = 0;
         }
     }
 

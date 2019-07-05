@@ -25,12 +25,10 @@ public class TaskAssign : MonoBehaviour
         taskLength = tasksRead.Length;
         if (!daily)
         {
-
             for (int i = 0; i < 5; i++)
             {
                 textObjects[i].text = tasksRead[i];
             }
-
         }
         else
         {

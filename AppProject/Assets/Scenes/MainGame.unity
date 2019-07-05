@@ -1012,6 +1012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54693801e0368a648a5d8b8084e0c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  date: 
   buttons:
   - {fileID: 353302786}
   - {fileID: 1764948883}
@@ -1023,6 +1024,7 @@ MonoBehaviour:
   weeklyCount: 0
   curDate: 0
   selectionCount: 0
+  tasksToSave: []
 --- !u!114 &50069257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13505,6 +13507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54693801e0368a648a5d8b8084e0c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  date: 
   buttons:
   - {fileID: 267853607}
   - {fileID: 2134491910}
@@ -13516,6 +13519,7 @@ MonoBehaviour:
   weeklyCount: 0
   curDate: 0
   selectionCount: 0
+  tasksToSave: []
 --- !u!114 &408672293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92551,11 +92555,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:

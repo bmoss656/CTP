@@ -16,7 +16,10 @@ public class InventoryAdd : MonoBehaviour
 
     public void AddToInv()
     {
-        mainInv.AddItem(mainItems.GetCurrentItem().name);
+        if (mainInv.heldItems.Count < 12)
+        {
+            mainInv.AddItem(mainItems.GetCurrentItem().name);
+        }
     }
 	
 }

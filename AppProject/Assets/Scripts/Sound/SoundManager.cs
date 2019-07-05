@@ -9,7 +9,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip backgroundMusic;
 
-    public AudioSource audSource;
+    public AudioSource musicSource;
     public AudioSource effectsSource;
 
     void Awake()
@@ -34,9 +34,8 @@ public class SoundManager : MonoBehaviour
 	
 	private void BackgroundMusic()
     {
-        Debug.Log("Playing");
-        audSource.clip = backgroundMusic;
-        audSource.Play();
+        musicSource.clip = backgroundMusic;
+        musicSource.Play();
     }
 
     public void PlayClip(AudioClip clip)

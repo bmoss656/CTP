@@ -156,7 +156,7 @@ public class EnvironmentControl : MonoBehaviour
                 activeFoliage = foliageCount / 5;
                 activeTree = treeCount / 5;
                 activeGrass = grassCount / 5;
-                activeDead = 0;
+                activeDead = 3;
                 activeDeadGrass = 0;
                 activeDeadFoliage = 0;
                 break;

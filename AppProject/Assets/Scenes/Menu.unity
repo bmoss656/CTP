@@ -446,6 +446,11 @@ Prefab:
       propertyPath: buttonClick
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114455504682159930, guid: dd2358c911315e14fb4ffacca38f0407,
+        type: 2}
+      propertyPath: musicSource
+      value: 
+      objectReference: {fileID: 619219091}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd2358c911315e14fb4ffacca38f0407, type: 2}
   m_IsPrefabAsset: 0
@@ -916,6 +921,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4977736753131842, guid: 16114d2c1fdc8451e844a8024a4130bf,
     type: 2}
   m_PrefabInternal: {fileID: 571416314}
+--- !u!82 &619219091 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 82484987707928674, guid: dd2358c911315e14fb4ffacca38f0407,
+    type: 2}
+  m_PrefabInternal: {fileID: 177306110}
 --- !u!1001 &620377721
 Prefab:
   m_ObjectHideFlags: 0

@@ -146,13 +146,15 @@ public class TaskButton : MonoBehaviour
     public void ButtonPressedWeek(int buttonNum)
     {
         weeklyActive[buttonNum] = false;
-        SoundManager.Instance.PlayClip(taskSound);
+        if (SoundManager.Instance)
+        {
+            SoundManager.Instance.PlayClip(taskSound);
+        }
         CheckWeek();
     }
 
     public void SetString(string task)
     {
-        Debug.Log("Shouldnt be here");
         if (selectionCount == 0)
         {
             tasksToSave = new string[5];
@@ -162,7 +164,6 @@ public class TaskButton : MonoBehaviour
         if (selectionCount == 4)
         {
             doneButton.SetActive(true);
-            //Save(true);
         }
     }
 

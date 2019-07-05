@@ -15,7 +15,8 @@ public class ShopManager : MonoBehaviour
 	
 	public void CheckBuy()
     {
-        if(items.currentObj.transform.GetChild(items.objectNum).GetComponent<RotateItem>().price < inv.GetCurrency())
+        if(items.currentObj.transform.GetChild(items.objectNum).GetComponent<RotateItem>().price < inv.GetCurrency() &&
+            inv.heldItems.Count < 12)
         {
             BuyItem();
         }

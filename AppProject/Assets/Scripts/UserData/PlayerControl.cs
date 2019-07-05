@@ -23,6 +23,7 @@ public class PlayerControl : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(Application.persistentDataPath);
         Load();
     }
 
@@ -142,6 +143,45 @@ public class PlayerControl : MonoBehaviour
             experience = data.experience;
             pType = data.type;
         }
+        else
+        {
+            experience = 2000;
+            pType = "Player1";
+        }
+    }
+
+    public void ResetSaveData()
+    {
+        if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/playerInfo.dat");
+        }
+
+        if(File.Exists(Application.persistentDataPath + "/taskDates.dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/taskDates.dat");
+        }
+
+        if(File.Exists(Application.persistentDataPath + "/taskInfo.dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/taskInfo.dat");
+        }
+
+        if(File.Exists(Application.persistentDataPath + "/inventoryInfo.dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/inventoryInfo.dat");
+        }
+
+        if(File.Exists(Application.persistentDataPath + "/outsidePlacedData.dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/outsidePlacedData.dat");
+        }
+
+        if (File.Exists(Application.persistentDataPath + "/housePlacedData.dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/housePlacedData.dat");
+        }
+
     }
 
 }

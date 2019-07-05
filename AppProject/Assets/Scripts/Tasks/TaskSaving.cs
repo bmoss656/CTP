@@ -77,6 +77,13 @@ public class TaskSaving : MonoBehaviour
             doneTutorial = data.doneTutorial;
             
         }
+        else
+        {
+            electronics = new string[5];
+            hours = 0;
+            assignedTasks = false;
+            doneTutorial = false;
+        }
     }
 
     public void SetTutorial(bool set)

@@ -209,7 +209,7 @@ public class PlacedObjectManager : MonoBehaviour
                 placedItems = new List<string>();
                 itemLocations = new List<Vector3Holder>();
                 itemRotations = new List<Vector3Holder>();
-
+                itemCount = 0;
             }
         }
         else
@@ -246,7 +246,7 @@ public class PlacedObjectManager : MonoBehaviour
                 placedItems = new List<string>();
                 itemLocations = new List<Vector3Holder>();
                 itemRotations = new List<Vector3Holder>();
-
+                itemCount = 0;
             }
         }
     }

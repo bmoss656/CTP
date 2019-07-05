@@ -1306,9 +1306,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   closeCam: {fileID: 1021090623263634}
-  taskList: {fileID: 0}
-  m_moveSpeed: 2
-  m_turnSpeed: 200
+  doorButton: {fileID: 0}
+  bar: {fileID: 0}
   canMove: 1
 --- !u!136 &136965656627608240
 CapsuleCollider:

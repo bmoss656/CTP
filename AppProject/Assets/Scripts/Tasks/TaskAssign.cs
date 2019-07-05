@@ -25,14 +25,12 @@ public class TaskAssign : MonoBehaviour
         taskLength = tasksRead.Length;
         if (!daily)
         {
-            if (!saved.assignedTasks)
+
+            for (int i = 0; i < 5; i++)
             {
-                for (int i = 0; i < 5; i++)
-                {
-                    textObjects[i].text = tasksRead[i];
-                }
-                saved.assignedTasks = true;
+                textObjects[i].text = tasksRead[i];
             }
+
         }
         else
         {

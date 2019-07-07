@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 54898017307516586}
   - component: {fileID: 114005501743785740}
   - component: {fileID: 114709220762774120}
+  - component: {fileID: 208614757838741318}
   m_Layer: 0
   m_Name: Sink
   m_TagString: Placeable
@@ -824,3 +825,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GetChildren: 1
+--- !u!208 &208614757838741318
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1180173385425958}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

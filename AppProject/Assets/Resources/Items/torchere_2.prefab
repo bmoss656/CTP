@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114671082447245092}
   - component: {fileID: 114731849626741092}
   - component: {fileID: 65217625933303132}
+  - component: {fileID: 208044941084878322}
   m_Layer: 0
   m_Name: torchere_2
   m_TagString: Placeable
@@ -380,3 +381,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliding: 0
+--- !u!208 &208044941084878322
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1279810946462364}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

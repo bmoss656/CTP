@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 54549605645492408}
   - component: {fileID: 114422726972185480}
   - component: {fileID: 114787986393438452}
+  - component: {fileID: 208572756067535888}
   m_Layer: 0
   m_Name: chair_4
   m_TagString: Placeable
@@ -532,3 +533,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GetChildren: 1
+--- !u!208 &208572756067535888
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1076989179923388}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

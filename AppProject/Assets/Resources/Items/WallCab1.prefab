@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 54471691110591232}
   - component: {fileID: 114373735631910262}
   - component: {fileID: 114267760056257982}
+  - component: {fileID: 208708853278121138}
   m_Layer: 0
   m_Name: WallCab1
   m_TagString: Placeable
@@ -313,3 +314,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliding: 0
+--- !u!208 &208708853278121138
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967427701029094}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

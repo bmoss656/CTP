@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114018642386691358}
   - component: {fileID: 114613522168223360}
   - component: {fileID: 65841422671395714}
+  - component: {fileID: 208435307465511502}
   m_Layer: 0
   m_Name: enchantedforest_bench
   m_TagString: Placeable
@@ -138,3 +139,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliding: 0
+--- !u!208 &208435307465511502
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272869207931498}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.047, y: 0.28800002, z: 0.275}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.006, y: 0.28800002, z: 0.021000002}
+  m_TimeToStationary: 0.5

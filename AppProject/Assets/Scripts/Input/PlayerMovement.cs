@@ -110,11 +110,10 @@ public class PlayerMovement : MonoBehaviour
         }
         if(other.gameObject.tag == "Placeable")
         {
-            m_animator.SetBool("Walking", false);
-            myAgent.isStopped = true;
-            myAgent.ResetPath();
-            Debug.Log("reset");
-            myAgent.velocity = new Vector3(0, 0, 0);
+            //m_animator.SetBool("Walking", false);
+            //myAgent.isStopped = true;
+            //myAgent.ResetPath();
+            //myAgent.velocity = new Vector3(0, 0, 0);
         }
     }
     private void OnCollisionStay(Collision other)
@@ -125,11 +124,23 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.gameObject.tag == "Placeable")
         {
-            m_animator.SetBool("Walking", false);
-            myAgent.isStopped = true;
-            myAgent.ResetPath();
-            Debug.Log("reset");
-            myAgent.velocity = new Vector3(0, 0, 0);
+            //m_animator.SetBool("Walking", false);
+            //myAgent.isStopped = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            m_isGrounded = true;
+        }
+        if (other.gameObject.tag == "Placeable")
+        {
+            //m_animator.SetBool("Walking", false);
+            //myAgent.isStopped = true;
+            //myAgent.ResetPath();
+            //myAgent.velocity = new Vector3(0, 0, 0);
         }
     }
 
@@ -138,6 +149,10 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             m_isGrounded = true;
+        }
+        else if(other.gameObject.tag == "Placeable")
+        {
+
         }
     }
 

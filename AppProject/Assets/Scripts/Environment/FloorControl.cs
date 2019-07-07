@@ -16,6 +16,7 @@ public class FloorControl : MonoBehaviour
     public void SetEnviroFloor()
     {
         mainR = GetComponent<Renderer>();
+        //Sets skybox and floor materials based on environment state
         if (EnvironmentControl.instance.curState == EnvironmentState.State1 ||
            EnvironmentControl.instance.curState == EnvironmentState.State2)
         {

@@ -4,29 +4,23 @@ using UnityEngine;
 
 public class BuildingFunctionality : MonoBehaviour
 {
-    private bool selected = false;
-
-
     public float speed = 150f;
-    private bool rLeft = false;
-    private bool rRight = false;
-
-    private Vector3 lastPosition;
-
     public LayerMask allowTouch;
-
-    private GameObject selectedObject;
-    private GameObject curRightArrow;
-    private GameObject curLeftArrow;
 
     public GameObject rightArrow;
     public GameObject leftArrow;
     public GameObject deSelectUI;
-    public GameObject bulldozer; 
+    public GameObject bulldozer;
 
+    private bool selected = false;
+    private bool rLeft = false;
+    private bool rRight = false;
     private bool inBuildMode = false;
 
-	// Use this for initialization
+    private Vector3 lastPosition;
+
+    private GameObject selectedObject;
+
 	void Start ()
     {
         rightArrow.SetActive(false);
@@ -36,13 +30,14 @@ public class BuildingFunctionality : MonoBehaviour
 
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
         if (inBuildMode)
         {
+            //If an item is selected
             if (selected)
             {
+                //Changes colour of object depending on if it can be placed
                 if (!selectedObject.GetComponent<CollisionChecker>().colliding)
                 {
                     selectedObject.GetComponent<ChangeTexture>().SetColour(Color.green);
@@ -52,6 +47,7 @@ public class BuildingFunctionality : MonoBehaviour
                     selectedObject.GetComponent<ChangeTexture>().SetColour(Color.red);
                 }
                 FollowTouch();
+                //Rotates the object left or right
                 if (rLeft)
                 {
                     if(selectedObject.transform.rotation.x == 0)
@@ -76,7 +72,7 @@ public class BuildingFunctionality : MonoBehaviour
                 }
                 return;
             }
-
+            //Raycasts to select items
             if (Application.platform == RuntimePlatform.Android)
             {
                 if ((Input.touchCount > 0))
@@ -131,6 +127,7 @@ public class BuildingFunctionality : MonoBehaviour
 
     void FollowTouch()
     {
+        //Raycasts to make items follow touch position
         if (Application.platform == RuntimePlatform.Android)
         {
             if ((Input.touchCount > 0))
@@ -167,14 +164,15 @@ public class BuildingFunctionality : MonoBehaviour
     {
         return inBuildMode;
     }
+
+    //Only allow building while in build mode
     public void SetBuildMode(bool set)
     {
         if (!set)
         {
             Deselect();
         }
-        inBuildMode = set;
-        
+        inBuildMode = set;     
     }
 
     public void RotateLeft(bool check)
@@ -187,12 +185,12 @@ public class BuildingFunctionality : MonoBehaviour
         rRight = check;
     }
 
+    //Select an item
     public void Select(RaycastHit hitInfo)
     {
         selected = true;
         selectedObject = hitInfo.collider.gameObject;
         lastPosition = selectedObject.transform.position;
-        //SpawnArrows();
         rightArrow.SetActive(true);
         leftArrow.SetActive(true);
         deSelectUI.SetActive(true);
@@ -204,11 +202,11 @@ public class BuildingFunctionality : MonoBehaviour
     {
         if (selectedObject)
         {
+            //Deselect object and save it's position in object manager
             if (selectedObject.GetComponent<CollisionChecker>().colliding)
             {
                 selectedObject.transform.position = lastPosition;
             }
-            Debug.Log(selectedObject.transform.GetSiblingIndex());
             selectedObject.GetComponentInParent<PlacedObjectManager>().SetPosition(selectedObject.transform.position, 
                                                                             selectedObject.transform.rotation.eulerAngles, 
                                                                             selectedObject.transform.GetSiblingIndex());

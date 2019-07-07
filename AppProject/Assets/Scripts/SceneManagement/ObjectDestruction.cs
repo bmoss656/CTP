@@ -8,8 +8,6 @@ public class ObjectDestruction : MonoBehaviour
 
     public void DestroyObjects()
     {
-
-
         Destroy(toDestroy);
     }
 	

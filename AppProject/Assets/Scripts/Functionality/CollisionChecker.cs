@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*Script used for building functionality, to check whether an object can be 
+placed or not. */
 public class CollisionChecker : MonoBehaviour
 {
     public bool colliding = false;
+
 
     private void OnCollisionEnter(Collision collision)
     {

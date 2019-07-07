@@ -8,6 +8,7 @@ public class ObjectLoading : MonoBehaviour
 
     public GameObject[] disable;
 
+    //Easy loading and disabling of objects, used multiple times on buttons
     public void LoadObjects()
     {
         foreach (GameObject load in loading)

@@ -16,6 +16,7 @@ public class InventoryAdd : MonoBehaviour
 
     public void AddToInv()
     {
+        //Add item to inventory if inv isn't full, 12 should be accessable variable
         if (mainInv.heldItems.Count < 12)
         {
             mainInv.AddItem(mainItems.GetCurrentItem().name);

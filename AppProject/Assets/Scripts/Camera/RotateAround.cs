@@ -12,10 +12,9 @@ public class RotateAround : MonoBehaviour
     public float rotateSpeed = 200;
 
 
-
-    // Update is called once per frame
     void Update ()
     {
+        //Used in combination with buttons to rotate the camera
         if (rLeft)
         {
             transform.RotateAround(orbit.transform.position, orbit.transform.up, rotateSpeed * Time.deltaTime);

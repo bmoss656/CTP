@@ -23,6 +23,8 @@ public class TaskAssign : MonoBehaviour
         tasksRead = taskList.text.Split('\n');
 
         taskLength = tasksRead.Length;
+
+        //Assign tasks based on what has been read from text file
         if (!daily)
         {
             for (int i = 0; i < 5; i++)
@@ -30,6 +32,7 @@ public class TaskAssign : MonoBehaviour
                 textObjects[i].text = tasksRead[i];
             }
         }
+        //Assign tasks based on selected saved daily tasks
         else
         {
             GetComponent<TaskButton>().SetTastText();

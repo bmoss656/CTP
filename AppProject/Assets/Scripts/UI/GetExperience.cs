@@ -12,7 +12,7 @@ public class GetExperience : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        pc = GameObject.FindGameObjectWithTag("SaveData").GetComponent<PlayerControl>();
+        pc = PlayerControl.instance;
         text = GetComponent<TextMeshProUGUI>();
 
         if (pc)
@@ -24,6 +24,7 @@ public class GetExperience : MonoBehaviour
 
     private void Update()
     {
+        //Updates the current exp for the eco-scale
         if (currentXP != pc.experience)
         {
             if (pc)

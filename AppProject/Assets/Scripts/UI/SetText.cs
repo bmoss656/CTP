@@ -9,20 +9,21 @@ public class SetText : MonoBehaviour
 
     public ItemControl items;
 
-	// Use this for initialization
+
 	void Start ()
     {
         text = GetComponent<TextMeshProUGUI>();
         
 	}
 
-    // Update is called once per frame
+
     void LateUpdate()
     {
         if (items.currentObj)
         {
             if (items.currentObj.transform.GetChild(items.objectNum))
             {
+                //Set price text ui in shop
                 text.text = items.currentObj.transform.GetChild(items.objectNum).GetComponent<RotateItem>().price.ToString();
             }
         }

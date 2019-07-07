@@ -37,15 +37,19 @@ public class GetItem : MonoBehaviour
         SetSprite();
         thisButton = GetComponent<Button>();
 
-        //Fetch the Raycaster from the GameObject (the Canvas)
+        //Gets the Raycaster from the gameobject
         m_Raycaster = GetComponentInParent<GraphicRaycaster>();
-        //Fetch the Event System from the Scene
+
+        //Get the scene's event system
         m_EventSystem = GetComponent<EventSystem>();
+
         startingPos = transform.GetChild(0).position;
     }
 
     public void SetSprite()
     {
+        /*Sets the sprites in the inventory to the correct image, loaded in from the resources
+        if there is an object in that position of inventory*/
         itemName = mainInv.GetItem(invPosition);
         if (itemName == "NULL")
         {
@@ -55,7 +59,6 @@ public class GetItem : MonoBehaviour
         }
         else
         {
-            //Set image to something
             transform.GetChild(0).gameObject.SetActive(true);
             if(Resources.Load("Sprites/" + itemName))
             {
@@ -73,11 +76,13 @@ public class GetItem : MonoBehaviour
         {
             if (!isEmpty)
             {
-                //Check if the left Mouse button is clicked
-                if (Application.platform == RuntimePlatform.WindowsEditor)
+                if (Application.platform == RuntimePlatform.WindowsEditor ||
+                    Application.platform == RuntimePlatform.WindowsPlayer)
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
+                        /*Raycasts different for UI, check against anything touched
+                         on the ui to see if it is an object*/
                         m_PointerEventData = new PointerEventData(m_EventSystem);
                         m_PointerEventData.position = Input.mousePosition;
                         List<RaycastResult> results = new List<RaycastResult>();
@@ -85,7 +90,6 @@ public class GetItem : MonoBehaviour
 
                         foreach (RaycastResult result in results)
                         {
-                            Debug.Log(result.gameObject.name);
                             if (result.gameObject.name == gameObject.name)
                             {
                                 if (isSelected)
@@ -101,6 +105,7 @@ public class GetItem : MonoBehaviour
                     }
                     else if (Input.GetMouseButtonUp(0))
                     {
+                        //If released then spawn object at ray's position
                         RayToSpawnPos();
                         isSelected = false;
                         transform.GetChild(0).position = startingPos;
@@ -166,7 +171,8 @@ public class GetItem : MonoBehaviour
             myRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             
         }
-        else if (Application.platform == RuntimePlatform.WindowsEditor)
+        else if (Application.platform == RuntimePlatform.WindowsEditor ||
+            Application.platform == RuntimePlatform.WindowsPlayer)
         {
             myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         }
@@ -176,6 +182,7 @@ public class GetItem : MonoBehaviour
         }
         if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, whatCanBeTouched))
         {
+            //If ray is within the allowed building area, spawn object
             if (hitInfo.collider.CompareTag("BuildingArea"))
             {
                 SpawnItem(hitInfo.point);
@@ -189,7 +196,7 @@ public class GetItem : MonoBehaviour
 
     private void SpawnItem(Vector3 position)
     {
-        Debug.Log("Trying to spawn");
+        //Loads in object from resources folder according to name and instantiates it
         GameObject spawn = Resources.Load("Items/" + itemName) as GameObject;
         Instantiate(spawn, position,spawn.transform.rotation , objectHolder.transform);
         objectHolder.GetComponent<PlacedObjectManager>().AddItem(itemName, position, spawn.transform.rotation.eulerAngles);

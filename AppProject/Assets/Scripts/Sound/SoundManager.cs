@@ -25,21 +25,19 @@ public class SoundManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
 
-        //audSource = GetComponent<AudioSource>();
-
         BackgroundMusic();
     }
-
- 
 	
 	private void BackgroundMusic()
     {
+        //Play background music at beggining of app
         musicSource.clip = backgroundMusic;
         musicSource.Play();
     }
 
     public void PlayClip(AudioClip clip)
     {
+        //Play passed audio clip
         effectsSource.clip = clip;
         effectsSource.Play();
     }

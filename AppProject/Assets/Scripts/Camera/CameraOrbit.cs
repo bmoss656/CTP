@@ -9,6 +9,7 @@ public class CameraOrbit : MonoBehaviour
 
     void Update ()
     {
+        //Allows camera to orbit around a set position
         transform.RotateAround(orbit.transform.position, orbit.transform.up, rotateSpeed * Time.deltaTime);
     }
 }

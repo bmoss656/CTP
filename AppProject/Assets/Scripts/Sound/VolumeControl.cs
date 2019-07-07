@@ -9,6 +9,7 @@ public class VolumeControl : MonoBehaviour
 
     public void ChangeVolume()
     {
+        //Change volume of the music and effects using sliders
         if(music)
         {
             SoundManager.Instance.musicSource.volume = GetComponent<Slider>().value;

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Used to subtract currency on purchase
 public class ShopManager : MonoBehaviour
 {
     private InventoryManager inv;
     private ItemControl items;
-	// Use this for initialization
+
 	void Start ()
     {
         inv = GameObject.FindGameObjectWithTag("Inventory").GetComponent<InventoryManager>();
@@ -15,6 +16,7 @@ public class ShopManager : MonoBehaviour
 	
 	public void CheckBuy()
     {
+        //if you have enough currency, buy item
         if(items.currentObj.transform.GetChild(items.objectNum).GetComponent<RotateItem>().price < inv.GetCurrency() &&
             inv.heldItems.Count < 12)
         {
@@ -22,7 +24,7 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
-            //DisplaySomething
+            //Display Something
         }
     }
 

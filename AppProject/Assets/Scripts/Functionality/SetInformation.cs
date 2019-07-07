@@ -7,14 +7,16 @@ public class SetInformation : MonoBehaviour
 {
     public TextMeshProUGUI mainText;
     public TextAsset[] textInfo;
+
     private string[] readInfo;
     private int currentInfo;
-
     private int infoLength;
 
 
     public void SetText()
     {
+        //Set the infopoint information depending on current state
+        //Loading in from text files that are easily customised
         readInfo = textInfo[currentInfo].text.Split('\n');
 
         infoLength = readInfo.Length;
@@ -42,13 +44,10 @@ public class SetInformation : MonoBehaviour
             case EnvironmentState.State7:
                 mainText.text = readInfo[6];
                 break;
-            default:         
+            default:
                 break;
         }
-
-
     }
-
 
     public void SetCurrentInfo(int i)
     {

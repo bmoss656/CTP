@@ -5,6 +5,7 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+//Save selections from intro questionnaire and whether intro has been done
 public class TaskSaving : MonoBehaviour
 {
 
@@ -21,6 +22,7 @@ public class TaskSaving : MonoBehaviour
     public GameObject Tasks;
 
     public TaskButton taskBut;
+
     private void OnEnable()
     {
         Load();
@@ -88,6 +90,7 @@ public class TaskSaving : MonoBehaviour
 
     public void SetTutorial(bool set)
     {
+        //Set tutorial as done
         doneTutorial = set;
         taskBut.weeklyCount = 1;
 

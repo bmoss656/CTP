@@ -16,6 +16,7 @@ public class ReadToggle : MonoBehaviour
 
     public void ReadElectronics()
     {
+        //Check which electronics have been selected in questionnaire
         foreach(Toggle t in toggles)
         {
             if(t.isOn)
@@ -42,6 +43,7 @@ public class ReadToggle : MonoBehaviour
 
     public void ReadHours()
     {
+        //Check how many hours a user has selected
         for (int i = 0; i < 5; i++)
         {
             if(toggles[i].isOn)

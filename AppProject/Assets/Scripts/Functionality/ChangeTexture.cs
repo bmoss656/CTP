@@ -6,10 +6,12 @@ public class ChangeTexture : MonoBehaviour
 {
     private Color[] childCol;
     private Color mainCol;
+
     public bool GetChildren = true;
 
     private void Start()
     {
+        //Different functions needed depending on whether object renderer is in the children
         if (GetChildren)
         {
             childCol = new Color[transform.childCount];
@@ -26,6 +28,7 @@ public class ChangeTexture : MonoBehaviour
 
     public void SetColour(Color colour)
     {
+        //Sets colour depending on passed in colour, used for building colour change
         if (GetChildren)
         {
             for (int i = 0; i < transform.childCount; i++)
@@ -39,6 +42,8 @@ public class ChangeTexture : MonoBehaviour
             GetComponent<Renderer>().material.color = colour;
         }
     }
+
+    //Set material back to normal
     public void ResetMaterial()
     {
         if (GetChildren)

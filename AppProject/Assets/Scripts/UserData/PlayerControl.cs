@@ -21,9 +21,15 @@ public class PlayerControl : MonoBehaviour
     public PlayerType type = PlayerType.EMPTY;
     public string lastLogonDate;
 
+
+    private int maxDataFiles = 0;
+    //Names of all files that get saved, used to reset app in reset function
+    private readonly string[] fileNames = { "/playerInfo", "/taskDates", "/taskInfo",
+                                    "/inventoryInfo", "/outsidePlacedData",
+                                    "/housePlacedData", "/weeklyTaskDates" };
+
     private void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
         Load();
     }
 
@@ -31,6 +37,8 @@ public class PlayerControl : MonoBehaviour
     {
         m_instance = this;
         Load();
+        maxDataFiles = 7;
+
     }
     private void OnDisable()
     {
@@ -42,21 +50,9 @@ public class PlayerControl : MonoBehaviour
         Save();
     }
 
-    //private void Awake()
-    //{
-    //    if(control == null)
-    //    {
-    //        DontDestroyOnLoad(gameObject);
-    //        control = this;
-    //    }
-    //    else if(control != this)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
     private void Start()
     {
-
+        //Would be used for loading in different player types if assets were avaliable
         if (pType == "player1")
         {
             type = PlayerType.PLAYER1;
@@ -76,13 +72,12 @@ public class PlayerControl : MonoBehaviour
         {
             type = PlayerType.EMPTY;
         }
-
-        Debug.Log(DateTime.Today);
     }
 
     public void GiveExp(float xp)
     {
         experience += xp;
+        //Cap exp at 10000
         if(experience > 10000)
         {
             experience = 10000;
@@ -152,36 +147,14 @@ public class PlayerControl : MonoBehaviour
 
     public void ResetSaveData()
     {
-        if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
+        //Delete all saved data
+        for (int i = 0; i< maxDataFiles; i++)
         {
-            File.Delete(Application.persistentDataPath + "/playerInfo.dat");
-        }
-
-        if(File.Exists(Application.persistentDataPath + "/taskDates.dat"))
-        {
-            File.Delete(Application.persistentDataPath + "/taskDates.dat");
-        }
-
-        if(File.Exists(Application.persistentDataPath + "/taskInfo.dat"))
-        {
-            File.Delete(Application.persistentDataPath + "/taskInfo.dat");
-        }
-
-        if(File.Exists(Application.persistentDataPath + "/inventoryInfo.dat"))
-        {
-            File.Delete(Application.persistentDataPath + "/inventoryInfo.dat");
-        }
-
-        if(File.Exists(Application.persistentDataPath + "/outsidePlacedData.dat"))
-        {
-            File.Delete(Application.persistentDataPath + "/outsidePlacedData.dat");
-        }
-
-        if (File.Exists(Application.persistentDataPath + "/housePlacedData.dat"))
-        {
-            File.Delete(Application.persistentDataPath + "/housePlacedData.dat");
-        }
-
+            if (File.Exists(Application.persistentDataPath + fileNames[i] + ".dat"))
+            {
+                File.Delete(Application.persistentDataPath + fileNames[i] + ".dat");
+            }
+        }     
     }
 
 }

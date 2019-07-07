@@ -847,7 +847,7 @@ GameObject:
   - component: {fileID: 50069257}
   - component: {fileID: 50069256}
   m_Layer: 5
-  m_Name: TaskManagerWeekly
+  m_Name: WeeklyTaskManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -875,28 +875,22 @@ RectTransform:
 --- !u!114 &50069256
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114748138443549494, guid: 2aaf36216a9795a449baa8ccf7022f86,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 50069254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54693801e0368a648a5d8b8084e0c626, type: 3}
+  m_Script: {fileID: 11500000, guid: e566938823e9a124d94598e8e7872c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  date: 
   buttons:
   - {fileID: 353302786}
   - {fileID: 1764948883}
   - {fileID: 2007671011}
   - {fileID: 394020811}
   - {fileID: 1121975647}
-  doneButton: {fileID: 0}
-  weeklyTask: 1
   weeklyCount: 0
   curDate: 0
-  selectionCount: 0
-  tasksToSave: []
 --- !u!114 &50069257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8158,7 +8152,6 @@ GameObject:
   - component: {fileID: 267853612}
   - component: {fileID: 267853611}
   - component: {fileID: 267853610}
-  - component: {fileID: 267853609}
   - component: {fileID: 267853608}
   m_Layer: 5
   m_Name: Task
@@ -8180,18 +8173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particles: {fileID: 198302999700714542, guid: e8931f1f50030f741861a311406424a8,
     type: 2}
---- !u!114 &267853609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114677382266184888, guid: af8ba6a6bd322df45b1ec9ecba679422,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 267853607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ce20271a3f09e34b851d3fece516c85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &267853610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13477,7 +13458,7 @@ GameObject:
   - component: {fileID: 408672293}
   - component: {fileID: 408672292}
   m_Layer: 5
-  m_Name: TaskManagerDaily
+  m_Name: DailyTaskManager
   m_TagString: DailyTasks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13503,8 +13484,6 @@ MonoBehaviour:
   - {fileID: 701384387}
   - {fileID: 23723108}
   doneButton: {fileID: 1227906338}
-  weeklyTask: 0
-  weeklyCount: 0
   curDate: 0
   selectionCount: 0
   tasksToSave: []
@@ -21273,7 +21252,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 50069256}
+      - m_Target: {fileID: 0}
         m_MethodName: Save
         m_Mode: 1
         m_Arguments:
@@ -76050,7 +76029,8 @@ MonoBehaviour:
   doneTutorial: 0
   tut: {fileID: 1659414976}
   Tasks: {fileID: 1518617627}
-  taskBut: {fileID: 50069256}
+  taskBut: {fileID: 408672292}
+  taskWeek: {fileID: 50069256}
 --- !u!4 &1586454321
 Transform:
   m_ObjectHideFlags: 0
@@ -90285,7 +90265,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 50069256}
+      - m_Target: {fileID: 0}
         m_MethodName: ResetButtons
         m_Mode: 1
         m_Arguments:

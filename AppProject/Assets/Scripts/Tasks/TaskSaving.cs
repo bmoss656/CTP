@@ -21,7 +21,8 @@ public class TaskSaving : MonoBehaviour
     public GameObject tut;
     public GameObject Tasks;
 
-    public TaskButton taskBut;
+    public DailyTaskManager taskBut;
+    public WeeklyTaskManager taskWeek;
 
     private void OnEnable()
     {
@@ -92,7 +93,7 @@ public class TaskSaving : MonoBehaviour
     {
         //Set tutorial as done
         doneTutorial = set;
-        taskBut.weeklyCount = 1;
+        taskWeek.weeklyCount = 1;
 
         string day = System.DateTime.Now.ToString();
 

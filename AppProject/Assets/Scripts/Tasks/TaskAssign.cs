@@ -35,7 +35,7 @@ public class TaskAssign : MonoBehaviour
         //Assign tasks based on selected saved daily tasks
         else
         {
-            GetComponent<TaskButton>().SetTastText();
+            GetComponent<DailyTaskManager>().SetTastText();
         }
     }
 	

@@ -9,7 +9,7 @@ public class SpawnTaskOptions : MonoBehaviour
 {
     public TextAsset taskList;
     public GameObject buttonPrefab;
-    public TaskButton tasks;
+    public DailyTaskManager tasks;
     
     public string[] tasksRead;
 

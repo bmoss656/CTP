@@ -26,7 +26,7 @@ public class PlayerControl : MonoBehaviour
     //Names of all files that get saved, used to reset app in reset function
     private readonly string[] fileNames = { "/playerInfo", "/taskDates", "/taskInfo",
                                     "/inventoryInfo", "/outsidePlacedData",
-                                    "/housePlacedData", "/weeklyTaskDates" };
+                                    "/housePlacedData", "/weeklyTaskDates" , "/gameSettings"};
 
     private void Awake()
     {

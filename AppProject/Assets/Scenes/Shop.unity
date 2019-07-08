@@ -7369,6 +7369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22abe8c663dc984498be5ea210480ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  purchaseSound: {fileID: 8300000, guid: a1ef01b6e2384d043818395a849d2182, type: 3}
 --- !u!114 &1625299292
 MonoBehaviour:
   m_ObjectHideFlags: 0

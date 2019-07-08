@@ -156,6 +156,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        Time.timeScale = 1;
     }
 }
 

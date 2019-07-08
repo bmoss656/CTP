@@ -74,21 +74,26 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    if (Input.GetMouseButton(0))
+                    Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hitInfo;
+                    if(Input.GetMouseButtonDown(0))
                     {
-                        Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                        RaycastHit hitInfo;
+                        if (Physics.Raycast(myRay, out hitInfo, 40f, whatCanBeTouched))
+                        {                         
+                            if (hitInfo.collider.tag == "Door")
+                            {
+                                doorButton.SetActive(!doorButton.activeSelf);
+                            }
+                        }
+                    }
+                    else if (Input.GetMouseButton(0))
+                    {                      
                         if (Physics.Raycast(myRay, out hitInfo, 20f, whatCanBeTouched))
                         {
                             if (hitInfo.collider.tag == "Ground")
                             {
                                 myAgent.SetDestination(hitInfo.point);
-                            }
-                            else if (hitInfo.collider.tag == "Door")
-                            {
-                                doorButton.SetActive(!doorButton.activeSelf);
-                            }
-                            
+                            }                          
                         }
                     }
                 }

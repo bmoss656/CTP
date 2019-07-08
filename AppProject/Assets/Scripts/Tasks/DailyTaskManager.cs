@@ -14,7 +14,6 @@ public class DailyTaskManager : MonoBehaviour
     public GameObject[] buttons;
     public GameObject doneButton;
     private AudioClip taskSound;
-    private PlayerControl pc;
 
     public int curDate;
 
@@ -29,8 +28,6 @@ public class DailyTaskManager : MonoBehaviour
 
     private void OnEnable()
     {
-        pc = PlayerControl.instance;
-
         Load();
         GetComponent<TaskAssign>().SetStrings(tasksToSave);
         CheckDay();

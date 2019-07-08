@@ -10,7 +10,6 @@ public class SetInformation : MonoBehaviour
 
     private string[] readInfo;
     private int currentInfo;
-    private int infoLength;
 
 
     public void SetText()
@@ -19,7 +18,6 @@ public class SetInformation : MonoBehaviour
         //Loading in from text files that are easily customised
         readInfo = textInfo[currentInfo].text.Split('\n');
 
-        infoLength = readInfo.Length;
 
         switch (EnvironmentControl.instance.curState)
         {

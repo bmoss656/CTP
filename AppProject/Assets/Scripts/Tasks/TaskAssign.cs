@@ -14,15 +14,13 @@ public class TaskAssign : MonoBehaviour
 
     private string[] tasksRead;
 
-    private int taskLength;
 
     public bool daily;
 
 	void Start ()
     {
+        //Read in tasks from text file
         tasksRead = taskList.text.Split('\n');
-
-        taskLength = tasksRead.Length;
 
         //Assign tasks based on what has been read from text file
         if (!daily)

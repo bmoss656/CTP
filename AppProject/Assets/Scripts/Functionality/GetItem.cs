@@ -12,7 +12,6 @@ public class GetItem : MonoBehaviour
 
     private Vector3 startingPos;
 
-    private Button thisButton;
     [SerializeField]
     private bool isSelected = false;
 
@@ -35,7 +34,6 @@ public class GetItem : MonoBehaviour
     void Start ()
     {
         SetSprite();
-        thisButton = GetComponent<Button>();
 
         //Gets the Raycaster from the gameobject
         m_Raycaster = GetComponentInParent<GraphicRaycaster>();

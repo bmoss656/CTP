@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-
+using UnityEngine.SceneManagement;
 
 
 public class PlayerControl : MonoBehaviour
@@ -154,9 +154,9 @@ public class PlayerControl : MonoBehaviour
             {
                 File.Delete(Application.persistentDataPath + fileNames[i] + ".dat");
             }
-        }     
+        }
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
-
 }
 
 [Serializable]
@@ -164,5 +164,4 @@ class PlayerData
 {
     public float experience;
     public string type;
-    public EnvironmentState state;
 }

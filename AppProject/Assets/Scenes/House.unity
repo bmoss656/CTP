@@ -494,7 +494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &27695316
 GameObject:
@@ -2210,7 +2210,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1833636996}
+      - m_Target: {fileID: 0}
         m_MethodName: Save
         m_Mode: 1
         m_Arguments:
@@ -3714,7 +3714,6 @@ GameObject:
   - component: {fileID: 315594885}
   - component: {fileID: 315594884}
   - component: {fileID: 315594883}
-  - component: {fileID: 315594882}
   - component: {fileID: 315594888}
   m_Layer: 5
   m_Name: Task
@@ -3723,18 +3722,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &315594882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114677382266184888, guid: af8ba6a6bd322df45b1ec9ecba679422,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 315594881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ce20271a3f09e34b851d3fece516c85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &315594883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4865,7 +4852,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1833636996}
+      - m_Target: {fileID: 0}
         m_MethodName: ButtonPressedWeek
         m_Mode: 3
         m_Arguments:
@@ -5750,8 +5737,6 @@ MonoBehaviour:
   - {fileID: 2133600789}
   - {fileID: 1099546523}
   doneButton: {fileID: 646527260}
-  weeklyTask: 0
-  weeklyCount: 0
   curDate: 0
   selectionCount: 0
   tasksToSave: []
@@ -6885,7 +6870,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1833636996}
+      - m_Target: {fileID: 0}
         m_MethodName: ButtonPressedWeek
         m_Mode: 3
         m_Arguments:
@@ -8093,7 +8078,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1833636996}
+      - m_Target: {fileID: 0}
         m_MethodName: ButtonPressedWeek
         m_Mode: 3
         m_Arguments:
@@ -8621,7 +8606,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4579534815985696, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1607624451112796, guid: d3dd6c9e2a9477b4c98bbb3bc2e9a834, type: 2}
       propertyPath: m_IsActive
@@ -10657,7 +10642,7 @@ Prefab:
     - target: {fileID: 224728086817227948, guid: 767295f1514971a40a0b3066a0de29fe,
         type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224728086817227948, guid: 767295f1514971a40a0b3066a0de29fe,
         type: 2}
@@ -13861,7 +13846,6 @@ Transform:
   - {fileID: 187874716}
   - {fileID: 1070351009}
   - {fileID: 1760219947}
-  - {fileID: 1647865412}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14114,7 +14098,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 757ffc25c08bfa64093107cb14326f20, type: 3}
   - {fileID: 4900000, guid: 94fce389c7f80f7498f928a1f48ab471, type: 3}
   - {fileID: 4900000, guid: 949ad8ffc0b80d34c803782b9c90aeb5, type: 3}
-  - {fileID: 4900000, guid: c2d2c8865eda96a488abb81b77ede24f, type: 3}
+  - {fileID: 0}
 --- !u!1001 &1152134689
 Prefab:
   m_ObjectHideFlags: 0
@@ -14385,7 +14369,7 @@ RectTransform:
   - {fileID: 517668819}
   - {fileID: 1133172277}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -14502,7 +14486,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1833636996}
+      - m_Target: {fileID: 0}
         m_MethodName: ButtonPressedWeek
         m_Mode: 3
         m_Arguments:
@@ -16289,7 +16273,7 @@ RectTransform:
   - {fileID: 1148173614}
   - {fileID: 851711034}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -16435,7 +16419,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1833636996}
+      - m_Target: {fileID: 0}
         m_MethodName: ResetButtons
         m_Mode: 1
         m_Arguments:
@@ -16966,7 +16950,8 @@ MonoBehaviour:
   doneTutorial: 0
   tut: {fileID: 1975758214}
   Tasks: {fileID: 1972280180}
-  taskBut: {fileID: 1833636996}
+  taskBut: {fileID: 456395282}
+  taskWeek: {fileID: 1469048199}
 --- !u!1 &1355092488
 GameObject:
   m_ObjectHideFlags: 0
@@ -18167,7 +18152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1469048198}
   - component: {fileID: 1469048197}
-  - component: {fileID: 1833636996}
+  - component: {fileID: 1469048199}
   m_Layer: 5
   m_Name: TaskManagerWeekly
   m_TagString: Untagged
@@ -18215,6 +18200,25 @@ RectTransform:
   m_AnchoredPosition: {x: -1.9092907, y: -2.2683842}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1469048199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1469048196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e566938823e9a124d94598e8e7872c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 2074120533}
+  - {fileID: 585389350}
+  - {fileID: 383899521}
+  - {fileID: 671600453}
+  - {fileID: 1180213585}
+  weeklyCount: 0
+  curDate: 0
 --- !u!1 &1495097040
 GameObject:
   m_ObjectHideFlags: 0
@@ -18399,7 +18403,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4620194495464452, guid: 20188243d57cca9468080e41ce06b22e, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114511221775176246, guid: 20188243d57cca9468080e41ce06b22e,
         type: 2}
@@ -18487,6 +18491,10 @@ Prefab:
     - target: {fileID: 1646527793997952, guid: 20188243d57cca9468080e41ce06b22e, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646527793997952, guid: 20188243d57cca9468080e41ce06b22e, type: 2}
+      propertyPath: m_Name
+      value: PlayerCameraHolder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20188243d57cca9468080e41ce06b22e, type: 2}
@@ -20534,36 +20542,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1645384248}
   m_CullTransparentMesh: 0
---- !u!1 &1647865411
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1948189621829078, guid: 2aaf36216a9795a449baa8ccf7022f86,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1647865412}
-  m_Layer: 0
-  m_Name: TaskManagers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1647865412
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 4317037971336032, guid: 2aaf36216a9795a449baa8ccf7022f86,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1647865411}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1117930353}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1649123095
 GameObject:
   m_ObjectHideFlags: 0
@@ -22238,7 +22216,7 @@ MonoBehaviour:
   loading:
   - {fileID: 1167984629}
   - {fileID: 1649123095}
-  - {fileID: 1647865411}
+  - {fileID: 0}
   disable:
   - {fileID: 851711033}
   - {fileID: 1444644237}
@@ -23060,31 +23038,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1818395145}
   m_CullTransparentMesh: 0
---- !u!114 &1833636996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114748138443549494, guid: 2aaf36216a9795a449baa8ccf7022f86,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1469048196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54693801e0368a648a5d8b8084e0c626, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  date: 
-  buttons:
-  - {fileID: 2074120533}
-  - {fileID: 585389350}
-  - {fileID: 383899521}
-  - {fileID: 671600453}
-  - {fileID: 1180213585}
-  doneButton: {fileID: 0}
-  weeklyTask: 1
-  weeklyCount: 0
-  curDate: 0
-  selectionCount: 0
-  tasksToSave: []
 --- !u!1 &1857503321
 GameObject:
   m_ObjectHideFlags: 0
@@ -23836,7 +23789,7 @@ MonoBehaviour:
   disable:
   - {fileID: 1167984629}
   - {fileID: 1649123095}
-  - {fileID: 1647865411}
+  - {fileID: 0}
 --- !u!114 &1926366456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26107,7 +26060,7 @@ Prefab:
     - target: {fileID: 224548995860042594, guid: 447acc2627c743d43a00865d81fa9499,
         type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224548995860042594, guid: 447acc2627c743d43a00865d81fa9499,
         type: 2}
@@ -27216,7 +27169,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1833636996}
+      - m_Target: {fileID: 0}
         m_MethodName: ButtonPressedWeek
         m_Mode: 3
         m_Arguments:

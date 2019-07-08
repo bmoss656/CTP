@@ -7,9 +7,13 @@ using UnityEngine.SceneManagement;
 public class LoadScene : MonoBehaviour
 {
     public string sName;
+    public GameObject loadingObject;
+
     private PlayerControl pc;
 
     private int lastLevel;
+
+    private AsyncOperation async;
 
     void Start()
     {
@@ -21,6 +25,8 @@ public class LoadScene : MonoBehaviour
         {
             Screen.SetResolution(640, 1024, true);
         }
+
+        loadingObject.SetActive(false);
     }
 
     private void OnDisable()
@@ -37,7 +43,7 @@ public class LoadScene : MonoBehaviour
 
     }
 
-    public void LoadLastScene()
+    public void LoadLastScene(bool withLoading)
     {
         lastLevel = PlayerPrefs.GetInt("LastLevel");
         SceneManager.LoadScene(lastLevel, LoadSceneMode.Single);
@@ -53,12 +59,31 @@ public class LoadScene : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("MainGame", LoadSceneMode.Single);
+            LoadingScreenLoad("MainGame");
         }
+    }
+
+    public void LoadingScreenLoad(string sceneName)
+    {
+        StartCoroutine(LoadingScreen(sceneName));
     }
 
     public void ExitApp()
     {
         Application.Quit();
+    }
+
+
+    private IEnumerator LoadingScreen(string sceneName)
+    {
+        loadingObject.SetActive(true);
+        async = SceneManager.LoadSceneAsync(sceneName);
+
+        while(!async.isDone)
+        {
+            yield return null;
+        }
+
+
     }
 }

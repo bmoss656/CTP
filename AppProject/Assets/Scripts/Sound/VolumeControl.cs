@@ -18,6 +18,8 @@ public class VolumeControl : MonoBehaviour
     private void Start()
     {
         Load();
+        ChangeVolume(true);
+        ChangeVolume(false);
         musicSlider.value = musicVol;
         soundsSlider.value = soundVol;
     }
@@ -35,9 +37,7 @@ public class VolumeControl : MonoBehaviour
     private void Update()
     {
         musicVol = musicSlider.value;
-        Debug.Log("Fixed Music " + musicVol);
         soundVol = soundsSlider.value;
-        Debug.Log("Fixed Sound " + soundVol);
     }
 
     public void ChangeVolume(bool music)
@@ -98,9 +98,9 @@ public class VolumeControl : MonoBehaviour
         else
         {
 
-            musicSlider.value = 0.75f;
+            musicVol = 0.75f;
 
-            soundsSlider.value = 0.5f;
+            soundVol = 0.5f;
 
         }
     }

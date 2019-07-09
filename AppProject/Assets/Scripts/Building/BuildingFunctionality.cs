@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingFunctionality : MonoBehaviour
 {
     public float speed = 150f;
     public LayerMask allowTouch;
+
+    public GameObject inventory; //Used to not select item while inventory is active
+    public Button invButton; //Dont allow this button to be pressed if an item is selected
 
     public GameObject rightArrow;
     public GameObject leftArrow;
@@ -37,6 +41,7 @@ public class BuildingFunctionality : MonoBehaviour
             //If an item is selected
             if (selected)
             {
+                invButton.interactable = false;
                 //Changes colour of object depending on if it can be placed
                 if (!selectedObject.GetComponent<CollisionChecker>().colliding)
                 {
@@ -46,6 +51,7 @@ public class BuildingFunctionality : MonoBehaviour
                 {
                     selectedObject.GetComponent<ChangeTexture>().SetColour(Color.red);
                 }
+                //Call function to make object follow users position
                 FollowTouch();
                 //Rotates the object left or right
                 if (rLeft)
@@ -73,13 +79,40 @@ public class BuildingFunctionality : MonoBehaviour
                 return;
             }
             //Raycasts to select items
-            if (Application.platform == RuntimePlatform.Android)
+            if (!inventory.activeSelf)
             {
-                if ((Input.touchCount > 0))
+                invButton.interactable = true;
+                if (Application.platform == RuntimePlatform.Android)
                 {
-                    if (Input.GetTouch(0).phase == TouchPhase.Began)
+                    if ((Input.touchCount > 0))
                     {
-                        Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                        if (Input.GetTouch(0).phase == TouchPhase.Began)
+                        {
+                            Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                            RaycastHit hitInfo;
+                            if (Physics.Raycast(raycast, out hitInfo))
+                            {
+                                if (hitInfo.collider.tag == "Placeable")
+                                {
+                                    if (!selected)
+                                    {
+                                        Select(hitInfo);
+                                    }
+                                    else
+                                    {
+                                        Deselect();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+                {
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
                         RaycastHit hitInfo;
                         if (Physics.Raycast(raycast, out hitInfo))
                         {
@@ -93,29 +126,6 @@ public class BuildingFunctionality : MonoBehaviour
                                 {
                                     Deselect();
                                 }
-                            }
-                        }
-                    }
-                }
-            }
-            else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
-            {
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hitInfo;
-                    if (Physics.Raycast(raycast, out hitInfo))
-                    {
-                        if (hitInfo.collider.tag == "Placeable")
-                        {
-                            if (!selected)
-                            {
-                                Select(hitInfo);
-                            }
-                            else
-                            {
-                                Deselect();
                             }
                         }
                     }
@@ -163,6 +173,11 @@ public class BuildingFunctionality : MonoBehaviour
     public bool GetBuildMode()
     {
         return inBuildMode;
+    }
+
+    public bool GetIfSelected()
+    {
+        return selected;
     }
 
     //Only allow building while in build mode

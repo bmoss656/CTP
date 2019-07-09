@@ -103,14 +103,18 @@ public class GetItem : MonoBehaviour
                     }
                     else if (Input.GetMouseButtonUp(0))
                     {
-                        //If released then spawn object at ray's position
-                        RayToSpawnPos();
-                        isSelected = false;
-                        transform.GetChild(0).position = startingPos;
-                        InventoryObject.SetActive(true);
-                        GetComponent<Image>().enabled = true;
-                        transform.parent = lastParent;
-                        transform.GetComponentInParent<ResetInventory>().ResetInv();
+                        if (isSelected)
+                        {
+                            //If released then spawn object at ray's position
+                            RayToSpawnPos();
+                            isSelected = false;
+                            transform.GetChild(0).position = startingPos;
+                            InventoryObject.SetActive(true);
+                            GetComponent<Image>().enabled = true;
+                            //transform.parent = lastParent;
+                            transform.SetParent(lastParent);
+                            transform.GetComponentInParent<ResetInventory>().ResetInv();
+                        }
                     }
                 }
                 else if (Application.platform == RuntimePlatform.Android)
@@ -124,7 +128,6 @@ public class GetItem : MonoBehaviour
 
                         foreach (RaycastResult result in results)
                         {
-                            Debug.Log(result.gameObject.name);
                             if (result.gameObject.name == gameObject.name)
                             {
                                 if (isSelected)
@@ -140,18 +143,23 @@ public class GetItem : MonoBehaviour
                     }
                     else if (Input.GetTouch(0).phase == TouchPhase.Ended)
                     {
-                        RayToSpawnPos();
-                        isSelected = false;
-                        transform.GetChild(0).position = startingPos;
-                        InventoryObject.SetActive(true);
-                        GetComponent<Image>().enabled = true;
-                        transform.parent = lastParent;
-                        transform.GetComponentInParent<ResetInventory>().ResetInv();
+                        if (isSelected)
+                        {
+                            RayToSpawnPos();
+                            isSelected = false;
+                            transform.GetChild(0).position = startingPos;
+                            InventoryObject.SetActive(true);
+                            GetComponent<Image>().enabled = true;
+                            //transform.parent = lastParent;
+                            transform.SetParent(lastParent);
+                            transform.GetComponentInParent<ResetInventory>().ResetInv();
+                        }
                     }
                 }
                 if (isSelected)
                 {
-                    transform.parent = buildCanvas.transform;
+                    //transform.parent = buildCanvas.transform;
+                    transform.SetParent(buildCanvas.transform);
                     GetComponent<Image>().enabled = false;
                     InventoryObject.SetActive(false);
                     transform.GetChild(0).position = Input.mousePosition;

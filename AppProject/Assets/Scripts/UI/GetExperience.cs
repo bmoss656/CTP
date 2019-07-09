@@ -30,6 +30,7 @@ public class GetExperience : MonoBehaviour
             if (pc)
             {
                 text.text = "Exp: " + pc.experience.ToString();
+                currentXP = pc.experience;
             }
         }
     }

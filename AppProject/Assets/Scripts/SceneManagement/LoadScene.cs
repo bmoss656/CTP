@@ -23,7 +23,7 @@ public class LoadScene : MonoBehaviour
         10 x 16 aspect ratio*/
         if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            Screen.SetResolution(592, 978, FullScreenMode.Windowed);
+            Screen.SetResolution(640, 1024, true);
         }
 
         loadingObject.SetActive(false);

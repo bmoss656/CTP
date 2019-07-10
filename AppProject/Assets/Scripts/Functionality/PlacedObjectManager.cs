@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
 
-//Unity vector3 is not serializable for saving so needed to create own holder
+//Unity vector3 is not serializable for saving to binary so needed to create own holder
 [Serializable]
 public struct Vector3Holder
 {
@@ -25,6 +25,7 @@ public struct Vector3Holder
     { get { return new Vector3(x, y, z); } }
 }
 
+//Deals with loading and saving of placed objects
 public class PlacedObjectManager : MonoBehaviour
 {
     public List<string> placedItems;
@@ -32,7 +33,7 @@ public class PlacedObjectManager : MonoBehaviour
     public List<Vector3Holder> itemRotations;
     private int itemCount = 0;
 
-    public bool isHouse = false;
+    public bool isHouse = false; //Different saved objects for outside/house
 
     private void OnEnable()
     {
@@ -52,6 +53,7 @@ public class PlacedObjectManager : MonoBehaviour
 
     public void AddItem(string objName, Vector3 position, Vector3 rotation)
     {
+        //Public function called to add new object
         placedItems.Add(objName);
         Vector3Holder holder1 = new Vector3Holder();
         holder1.Fill(position);
@@ -68,6 +70,7 @@ public class PlacedObjectManager : MonoBehaviour
 
     public void DeleteItem(int itemIndex)
     {
+        //Destroy saved item
         placedItems.RemoveAt(itemIndex);
         itemLocations.RemoveAt(itemIndex);
         itemRotations.RemoveAt(itemIndex);
@@ -76,6 +79,7 @@ public class PlacedObjectManager : MonoBehaviour
 
     private void SpawnItems()
     {
+        //Spawn in items at start/loading of scene
         if (itemCount > 0)
         {
             for (int i = 0; i < itemCount; i++)
@@ -91,6 +95,7 @@ public class PlacedObjectManager : MonoBehaviour
 
     public void SetPosition(Vector3 pos, Vector3 rot, int itemIndex)
     {
+        //Saving the position of placed objects using custom vector3 holder
         Vector3Holder holder1 = new Vector3Holder();
         holder1.Fill(pos);
         itemLocations[itemIndex] = holder1;
@@ -102,6 +107,7 @@ public class PlacedObjectManager : MonoBehaviour
 
     public void SetSize()
     {
+        //Different scale is used within the smaller house
         for(int i = 0; i< transform.childCount; i++)
         {
             transform.GetChild(i).transform.localScale = new Vector3(1, 1, 1);
@@ -110,7 +116,7 @@ public class PlacedObjectManager : MonoBehaviour
 
     public void Save()
     {
-        
+        //Save objects, either house or outside objects
         if (!isHouse)
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -209,7 +215,7 @@ public class PlacedObjectManager : MonoBehaviour
                 placedItems = new List<string>();
                 itemLocations = new List<Vector3Holder>();
                 itemRotations = new List<Vector3Holder>();
-
+                itemCount = 0;
             }
         }
         else
@@ -246,7 +252,7 @@ public class PlacedObjectManager : MonoBehaviour
                 placedItems = new List<string>();
                 itemLocations = new List<Vector3Holder>();
                 itemRotations = new List<Vector3Holder>();
-
+                itemCount = 0;
             }
         }
     }

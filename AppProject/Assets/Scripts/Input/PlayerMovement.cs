@@ -7,25 +7,20 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
     public LayerMask whatCanBeTouched;
-    public GameObject closeCam;
-    private NavMeshAgent myAgent;
-    private Rigidbody rb;
-
     public GameObject doorButton;
-    public RectTransform bar;
 
+    private NavMeshAgent myAgent;
     private Animator m_animator;
 
     private bool m_isGrounded;
-    public bool canMove = true;
 
+    public bool canMove = true;
 
     private void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
         m_animator = GetComponent<Animator>();
         m_isGrounded = true;
-        rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
@@ -34,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         m_animator.SetBool("Grounded", m_isGrounded);
         if (canMove)
         {
+            //Raycasts for movement and selection of house door
             if (Application.platform == RuntimePlatform.Android && Input.touchCount > 0)
             {
                 if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
@@ -45,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
                         
                             if (Physics.Raycast(myRay, out hitInfo, 30f, whatCanBeTouched))
                             {
+                                //Move navmesh agent if ground is touched
                                 if (hitInfo.collider.tag == "Ground")
                                 {
                                     myAgent.SetDestination(hitInfo.point);
@@ -72,47 +69,49 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
-            else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+            else if (Application.platform == RuntimePlatform.WindowsEditor || 
+                Application.platform == RuntimePlatform.WindowsPlayer)
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    if (Input.GetMouseButton(0))
+                    Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hitInfo;
+                    if(Input.GetMouseButtonDown(0))
                     {
-                        Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                        RaycastHit hitInfo;
+                        if (Physics.Raycast(myRay, out hitInfo, 40f, whatCanBeTouched))
+                        {                         
+                            if (hitInfo.collider.tag == "Door")
+                            {
+                                doorButton.SetActive(!doorButton.activeSelf);
+                            }
+                        }
+                    }
+                    else if (Input.GetMouseButton(0))
+                    {                      
                         if (Physics.Raycast(myRay, out hitInfo, 20f, whatCanBeTouched))
                         {
                             if (hitInfo.collider.tag == "Ground")
                             {
                                 myAgent.SetDestination(hitInfo.point);
-                            }
-                            else if (hitInfo.collider.tag == "Door")
-                            {
-                                doorButton.SetActive(!doorButton.activeSelf);
-                            }
-                            
+                            }                          
                         }
                     }
                 }
             }  
         }
 
+        //Dealing with player animation
         bool shouldMove = myAgent.velocity.magnitude > 0.5f && myAgent.remainingDistance > myAgent.radius;
 
         m_animator.SetBool("Walking", shouldMove);
     }
 
-    private void OnCollisionEnter(Collision other)
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Ground")
         {
             m_isGrounded = true;
-        }
-        if(other.gameObject.tag == "Placeable")
-        {
-            m_animator.SetBool("Walking", false);
-            myAgent.isStopped = true;
-            myAgent.ResetPath();
         }
     }
 
@@ -127,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
     private bool CheckOver()
     {
         bool check = false;
-
+        //Check to see if touching UI, if so dont move player
         for(int i = 0; i < Input.touchCount; i++)
         {
             check = EventSystem.current.IsPointerOverGameObject(Input.GetTouch(i).fingerId);
@@ -136,8 +135,6 @@ public class PlayerMovement : MonoBehaviour
                 break;
             }
         }
-
-
         return check;
     }
 

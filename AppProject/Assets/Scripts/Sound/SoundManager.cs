@@ -8,10 +8,8 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance {get { return instance; } }
 
     public AudioClip backgroundMusic;
-    public AudioClip buttonClick;
-    public AudioClip confirm;
 
-    public AudioSource audSource;
+    public AudioSource musicSource;
     public AudioSource effectsSource;
 
     void Awake()
@@ -27,23 +25,20 @@ public class SoundManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
 
-        //audSource = GetComponent<AudioSource>();
-
         BackgroundMusic();
     }
-
- 
 	
 	private void BackgroundMusic()
     {
-        Debug.Log("Playing");
-        audSource.clip = backgroundMusic;
-        audSource.Play();
+        //Play background music at beggining of app
+        musicSource.clip = backgroundMusic;
+        musicSource.Play();
     }
 
     public void PlayClip(AudioClip clip)
     {
-        effectsSource.clip = confirm;
+        //Play passed audio clip
+        effectsSource.clip = clip;
         effectsSource.Play();
     }
 

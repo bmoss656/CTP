@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Used to help handle ui bar elements at bottom of the screen
 public class BarHandler : MonoBehaviour
 {
     private GameObject[] holders;
 
     private bool[] holdersActive;
-	// Use this for initialization
+
 	void Start ()
     {
         holders = new GameObject[transform.childCount];

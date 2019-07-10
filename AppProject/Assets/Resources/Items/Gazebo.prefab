@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 65820103079890576}
   - component: {fileID: 114420298538905848}
   - component: {fileID: 114579618401996282}
+  - component: {fileID: 208659603188792254}
   m_Layer: 0
   m_Name: Gazebo
   m_TagString: Placeable
@@ -138,3 +139,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliding: 0
+--- !u!208 &208659603188792254
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1787056895365450}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.3230001, y: 1.1170001, z: 1.3230001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.1120001, z: 0}
+  m_TimeToStationary: 0.5

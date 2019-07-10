@@ -9,14 +9,11 @@ public class EarthInfo : MonoBehaviour
     public GameObject infoCan;
     private SetInformation setInfo;
     public int num;
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
+
 
     void Update()
     {
+        //Detect if a raycast hits a info holder, display info if yes
         if (Application.platform == RuntimePlatform.Android)
         {
             if ((Input.touchCount > 0))
@@ -35,7 +32,7 @@ public class EarthInfo : MonoBehaviour
                 }
             }
         }
-        else if(Application.platform == RuntimePlatform.WindowsEditor)
+        else if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
         {
             
             if (Input.GetMouseButtonDown(0))

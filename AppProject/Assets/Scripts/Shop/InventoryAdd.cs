@@ -6,7 +6,7 @@ public class InventoryAdd : MonoBehaviour
 {
     InventoryManager mainInv;
     ItemControl mainItems;
-
+    public AudioClip purchaseSound;
 
     public void Start()
     {
@@ -16,7 +16,15 @@ public class InventoryAdd : MonoBehaviour
 
     public void AddToInv()
     {
-        mainInv.AddItem(mainItems.GetCurrentItem().name);
+        //Add item to inventory if inv isn't full, 12 should be accessable variable
+        if (mainInv.heldItems.Count < 12)
+        {
+            mainInv.AddItem(mainItems.GetCurrentItem().name);
+            if(SoundManager.Instance)
+            {
+                SoundManager.Instance.PlayClip(purchaseSound);
+            }
+        }
     }
 	
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-
+using UnityEngine.SceneManagement;
 
 
 public class PlayerControl : MonoBehaviour
@@ -21,6 +21,13 @@ public class PlayerControl : MonoBehaviour
     public PlayerType type = PlayerType.EMPTY;
     public string lastLogonDate;
 
+
+    private int maxDataFiles = 0;
+    //Names of all files that get saved, used to reset app in reset function
+    private readonly string[] fileNames = { "/playerInfo", "/taskDates", "/taskInfo",
+                                    "/inventoryInfo", "/outsidePlacedData",
+                                    "/housePlacedData", "/weeklyTaskDates" , "/gameSettings"};
+
     private void Awake()
     {
         Load();
@@ -30,6 +37,8 @@ public class PlayerControl : MonoBehaviour
     {
         m_instance = this;
         Load();
+        maxDataFiles = 7;
+
     }
     private void OnDisable()
     {
@@ -41,21 +50,9 @@ public class PlayerControl : MonoBehaviour
         Save();
     }
 
-    //private void Awake()
-    //{
-    //    if(control == null)
-    //    {
-    //        DontDestroyOnLoad(gameObject);
-    //        control = this;
-    //    }
-    //    else if(control != this)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
     private void Start()
     {
-
+        //Would be used for loading in different player types if assets were avaliable
         if (pType == "player1")
         {
             type = PlayerType.PLAYER1;
@@ -75,13 +72,12 @@ public class PlayerControl : MonoBehaviour
         {
             type = PlayerType.EMPTY;
         }
-
-        Debug.Log(DateTime.Today);
     }
 
     public void GiveExp(float xp)
     {
         experience += xp;
+        //Cap exp at 10000
         if(experience > 10000)
         {
             experience = 10000;
@@ -142,8 +138,26 @@ public class PlayerControl : MonoBehaviour
             experience = data.experience;
             pType = data.type;
         }
+        else
+        {
+            experience = 2000;
+            pType = "Player1";
+        }
     }
 
+    public void ResetSaveData()
+    {
+        //Delete all saved data
+        for (int i = 0; i< maxDataFiles; i++)
+        {
+            if (File.Exists(Application.persistentDataPath + fileNames[i] + ".dat"))
+            {
+                File.Delete(Application.persistentDataPath + fileNames[i] + ".dat");
+            }
+        }
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        Time.timeScale = 1;
+    }
 }
 
 [Serializable]
@@ -151,5 +165,4 @@ class PlayerData
 {
     public float experience;
     public string type;
-    public EnvironmentState state;
 }

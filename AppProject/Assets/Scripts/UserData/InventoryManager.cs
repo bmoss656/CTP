@@ -33,11 +33,6 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    void Start ()
-    {
-       
-    }
-
     public void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -102,6 +97,7 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(string name)
     {
+        //Items are represented using the name of the item, which can then be loaded from resources
         heldItems.Add(name);
     }
 
@@ -112,6 +108,7 @@ public class InventoryManager : MonoBehaviour
 
     public string GetItem(int num)
     {
+        //Fetching an item will return null string if item doesnt exist
         if(heldItems.Count > num)
         {
             return heldItems[num];

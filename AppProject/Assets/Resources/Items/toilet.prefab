@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 54713152863550162}
   - component: {fileID: 114423752679305430}
   - component: {fileID: 114455569196795002}
+  - component: {fileID: 208887317861614520}
   m_Layer: 0
   m_Name: toilet
   m_TagString: Placeable
@@ -240,3 +241,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GetChildren: 1
+--- !u!208 &208887317861614520
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926341691481312}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

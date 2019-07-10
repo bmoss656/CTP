@@ -7,11 +7,7 @@ public class ButtonParticle : MonoBehaviour
 {
     public ParticleSystem particles;
 
-    private void Start()
-    {
-       // particles = GetComponent<ParticleSystem>();
-    }
-
+    //Spawns particles on buttton touch, auto destroyed
     public void ParticleBurst()
     {
         Instantiate(particles, transform.position, particles.transform.rotation, transform);

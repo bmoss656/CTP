@@ -5,16 +5,20 @@ using UnityEngine;
 public class InputHandling : MonoBehaviour
 {
 
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-
-    // Update is called once per frame
     void Update()
     {
+        //Exits out of application using android bar or escape key
         if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Application.Quit();
+
+                return;
+            }
+        }
+        else if (Application.platform == RuntimePlatform.WindowsEditor ||
+            Application.platform == RuntimePlatform.WindowsPlayer)
         {
             if (Input.GetKey(KeyCode.Escape))
             {

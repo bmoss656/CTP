@@ -14,11 +14,12 @@ public class BarButtons : MonoBehaviour
 
     public void Touch()
     {
+        //Sets active on first touch, deativates on second
         foreach (GameObject obj in objects)
         {
             obj.SetActive(!obj.activeSelf);
         }
-
+        //Resets the agents path so that it doesnt move whilst touching bar
         if(agent)
         {
             agent.ResetPath();

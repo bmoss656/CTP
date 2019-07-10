@@ -6,13 +6,17 @@ public class FloorControl : MonoBehaviour
 {
     public Material grassMat;
     public Material dirtMat;
+    public Material dirtGrassMat;
+
     public Material skybox_m;
+    public Material darkSkybox_m;
 
     private Renderer mainR;
 
     public void SetEnviroFloor()
     {
         mainR = GetComponent<Renderer>();
+        //Sets skybox and floor materials based on environment state
         if (EnvironmentControl.instance.curState == EnvironmentState.State1 ||
            EnvironmentControl.instance.curState == EnvironmentState.State2)
         {
@@ -21,12 +25,19 @@ public class FloorControl : MonoBehaviour
             RenderSettings.fog = true;
             if(EnvironmentControl.instance.curState == EnvironmentState.State1)
             {
-                RenderSettings.fogEndDistance = 50;
+                RenderSettings.fogEndDistance = 60;
             }
             else if (EnvironmentControl.instance.curState == EnvironmentState.State2)
             {
-                RenderSettings.fogEndDistance = 90;
+                RenderSettings.fogEndDistance = 100;
             }
+        }
+        else if(EnvironmentControl.instance.curState == EnvironmentState.State3)
+        {
+            mainR.material = dirtGrassMat;
+            RenderSettings.skybox = darkSkybox_m;
+            RenderSettings.fog = true;
+            RenderSettings.fogEndDistance = 150;
         }
         else
         {

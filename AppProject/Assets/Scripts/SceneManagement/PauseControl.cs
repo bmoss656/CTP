@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Script to pause app
 public class PauseControl : MonoBehaviour
 {
     public GameObject mainCanvas;
@@ -22,6 +23,7 @@ public class PauseControl : MonoBehaviour
         pauseCanvas.SetActive(false);
     }
 
+    //Time needs to be paused at certain points without canva's being activated
     public void PauseTime()
     {
         Time.timeScale = 0;

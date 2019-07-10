@@ -377,7 +377,7 @@ GameObject:
   m_Layer: 5
   m_Name: Task
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -6045,7 +6045,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 757ffc25c08bfa64093107cb14326f20, type: 3}
   - {fileID: 4900000, guid: 94fce389c7f80f7498f928a1f48ab471, type: 3}
   - {fileID: 4900000, guid: 949ad8ffc0b80d34c803782b9c90aeb5, type: 3}
-  - {fileID: 4900000, guid: c2d2c8865eda96a488abb81b77ede24f, type: 3}
+  - {fileID: 0}
 --- !u!114 &114163328219415106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7987,6 +7987,7 @@ MonoBehaviour:
   taskList: {fileID: 4900000, guid: be053a871049ae24c884856bd2b2eb5a, type: 3}
   buttonPrefab: {fileID: 1230726284297304, guid: b169a4426cd8c0c44b30df917a494a84,
     type: 2}
+  tasks: {fileID: 0}
   tasksRead: []
 --- !u!114 &114274636829404894
 MonoBehaviour:

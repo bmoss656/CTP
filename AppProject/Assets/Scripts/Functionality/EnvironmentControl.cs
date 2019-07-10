@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum EnvironmentState
 {
+    //States for how the environment will be displayed
     State1,
     State2,
     State3,
@@ -27,26 +28,31 @@ public class EnvironmentControl : MonoBehaviour
 
     public GameObject grassObjects;
     public GameObject deadGrass;
+
+
+
     public FloorControl fc;
 
     public EnvironmentState curState;
 
-    private int treeCount;
-    private int foliageCount;
-    private int grassCount;
-
+    #region EnvironmentCounts
     private int deadTreeCount;
     private int deadGrassCount;
     private int deadFoliageCount;
 
+    private int treeCount;
     private int activeTree;
+    private int activeDeadTrees;
 
+    private int foliageCount;
     private int activeFoliage;
     private int activeDeadFoliage;
 
-    private int activeDead;
+
+    private int grassCount;
     private int activeGrass;
     private int activeDeadGrass;
+    #endregion
 
     private bool firstTime = true;
 
@@ -57,17 +63,16 @@ public class EnvironmentControl : MonoBehaviour
     private void Awake()
     {
         m_instance = this;
-        pc = GameObject.FindGameObjectWithTag("SaveData").GetComponent<PlayerControl>();
-        //exp = pc.experience;
-        //curState = SetEnvironmentState();
+        
     }
 
-    // Use this for initialization
     void Start()
     {
+        pc = PlayerControl.instance;
+       
         if (firstTime)
         {
-
+            //Set ints to how many objects are avaliable
             treeCount = treeObjects.transform.childCount;
             foliageCount = foliageObjects.transform.childCount;
             deadTreeCount = deadObjects.transform.childCount;
@@ -91,6 +96,7 @@ public class EnvironmentControl : MonoBehaviour
     {
         exp = pc.experience;
         curState = SetEnvironmentState();
+        DisableAll();
         SetEnvironmentVariables();
         SetActiveEnvironment();
         fc.SetEnviroFloor();
@@ -98,6 +104,7 @@ public class EnvironmentControl : MonoBehaviour
 
     public EnvironmentState SetEnvironmentState()
     {
+        //Check exp and set state accordingly
         if (exp < 500)
         {
             return EnvironmentState.State1;
@@ -134,13 +141,14 @@ public class EnvironmentControl : MonoBehaviour
 
     private void SetEnvironmentVariables()
     {
+        //Setting variables of the environment to decide what objects to make active
         switch (curState)
         {
             case EnvironmentState.State1:
                 activeFoliage = 0;
                 activeTree = 0;
                 activeGrass = 0;
-                activeDead = deadTreeCount;
+                activeDeadTrees = deadTreeCount;
                 activeDeadGrass = deadGrassCount / 2;
                 activeDeadFoliage = deadFoliageCount / 2;
                 break;
@@ -148,7 +156,7 @@ public class EnvironmentControl : MonoBehaviour
                 activeFoliage = 0;
                 activeTree = 0;
                 activeGrass = 0;
-                activeDead = deadTreeCount;
+                activeDeadTrees = deadTreeCount;
                 activeDeadGrass = deadGrassCount;
                 activeDeadFoliage = deadFoliageCount;
                 break;
@@ -156,7 +164,7 @@ public class EnvironmentControl : MonoBehaviour
                 activeFoliage = foliageCount / 5;
                 activeTree = treeCount / 5;
                 activeGrass = grassCount / 5;
-                activeDead = 0;
+                activeDeadTrees = 3;
                 activeDeadGrass = 0;
                 activeDeadFoliage = 0;
                 break;
@@ -164,7 +172,7 @@ public class EnvironmentControl : MonoBehaviour
                 activeFoliage = foliageCount / 3;
                 activeTree = treeCount / 3;
                 activeGrass = grassCount / 3;
-                activeDead = 0;
+                activeDeadTrees = 0;
                 activeDeadGrass = 0;
                 activeDeadFoliage = 0;
                 break;
@@ -172,7 +180,7 @@ public class EnvironmentControl : MonoBehaviour
                 activeFoliage = foliageCount / 2;
                 activeTree = treeCount / 2;
                 activeGrass = grassCount / 3;
-                activeDead = 0;
+                activeDeadTrees = 0;
                 activeDeadGrass = 0;
                 activeDeadFoliage = 0;
                 break;
@@ -180,16 +188,22 @@ public class EnvironmentControl : MonoBehaviour
                 activeFoliage = foliageCount;
                 activeTree = treeCount;
                 activeGrass = grassCount;
-                activeDead = 0;
+                activeDeadTrees = 0;
                 activeDeadGrass = 0;
                 activeDeadFoliage = 0;
                 break;
             case EnvironmentState.State7:
+                activeFoliage = foliageCount;
+                activeTree = treeCount;
+                activeGrass = grassCount;
+                activeDeadTrees = 0;
+                activeDeadGrass = 0;
+                activeDeadFoliage = 0;
                 break;
             default:
                 activeFoliage = 0;
                 activeTree = 0;
-                activeDead = 0;
+                activeDeadTrees = 0;
                 activeGrass = 0;
                 activeDeadGrass = 0;
                 activeDeadFoliage = 0;
@@ -199,81 +213,50 @@ public class EnvironmentControl : MonoBehaviour
 
     private void SetActiveEnvironment()
     {
-        if(activeTree == 0)
+        //Enabling the different environmental objects depending on count
+
+        for (int i = 0; i < activeTree; i++)
         {
-            treeObjects.SetActive(false);
-        }
-        else
-        {
-            treeObjects.SetActive(true);
-            for (int i = 0; i < activeTree; i++)
-            {
-                treeObjects.transform.GetChild(i).gameObject.SetActive(true);
-            }
+            treeObjects.transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        if(activeFoliage == 0)
+        for (int i = 0; i < activeFoliage; i++)
         {
-            foliageObjects.SetActive(false);
-        }
-        else
-        {
-            foliageObjects.SetActive(true);
-            for (int i = 0; i < activeFoliage; i++)
-            {
-                foliageObjects.transform.GetChild(i).gameObject.SetActive(true);
-            }
+            foliageObjects.transform.GetChild(i).gameObject.SetActive(true);
         }
         
-        if(activeGrass == 0)
+        for (int i = 0; i < activeGrass; i++)
         {
-            grassObjects.SetActive(false);
-        }
-        else
-        {
-            grassObjects.SetActive(true);
-            for (int i = 0; i < activeGrass; i++)
-            {
-                grassObjects.transform.GetChild(i).gameObject.SetActive(true);
-            }
+            grassObjects.transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        if (activeDead == 0)
+        for (int i = 0; i < activeDeadTrees; i++)
         {
-            deadObjects.SetActive(false);
-        }
-        else
-        {
-            deadObjects.SetActive(true);
-            for (int i = 0; i < activeDead; i++)
-            {
-                deadObjects.transform.GetChild(i).gameObject.SetActive(true);
-            }
+            deadObjects.transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        if (activeDeadGrass == 0)
+        for (int i = 0; i < activeDeadGrass; i++)
         {
-            deadGrass.SetActive(false);
-        }
-        else
-        {
-            deadGrass.SetActive(true);
-            for (int i = 0; i < activeDeadGrass; i++)
-            {
-                deadGrass.transform.GetChild(i).gameObject.SetActive(true);
-            }
+            deadGrass.transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        if (activeDeadFoliage == 0)
+
+        for (int i = 0; i < activeDeadFoliage; i++)
         {
-            deadFoliage.SetActive(false);
+            deadFoliage.transform.GetChild(i).gameObject.SetActive(true);
         }
-        else
+
+    }
+
+    private void DisableAll()
+    {
+        GameObject[] allObjects = { treeObjects, deadObjects, foliageObjects, deadFoliage, grassObjects, deadGrass };
+
+        for (int i = 0; i < allObjects.Length; i++)
         {
-            deadFoliage.SetActive(true);
-            for (int i = 0; i < activeDeadFoliage; i++)
+            foreach (Transform child in allObjects[i].transform)
             {
-                deadFoliage.transform.GetChild(i).gameObject.SetActive(true);
+                child.gameObject.SetActive(false);
             }
         }
     }

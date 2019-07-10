@@ -7,13 +7,31 @@ using UnityEngine.SceneManagement;
 public class LoadScene : MonoBehaviour
 {
     public string sName;
-    public PlayerControl pc;
+    public GameObject loadingObject;
+
+    private PlayerControl pc;
 
     private int lastLevel;
 
+    private AsyncOperation async;
+
+    void Start()
+    {
+        pc = PlayerControl.instance;
+        /*Setting fixed android resolution for windows player, 1280 x 2048 is best, 
+        but not all screens will have that resolution so has been scaled down, uses
+        10 x 16 aspect ratio*/
+        if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            Screen.SetResolution(640, 1024, true);
+        }
+
+        loadingObject.SetActive(false);
+    }
 
     private void OnDisable()
     {
+        //Basic saving of last scene for returning from shop
         lastLevel = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("LastLevel", lastLevel);
     }
@@ -25,7 +43,7 @@ public class LoadScene : MonoBehaviour
 
     }
 
-    public void LoadLastScene()
+    public void LoadLastScene(bool withLoading)
     {
         lastLevel = PlayerPrefs.GetInt("LastLevel");
         SceneManager.LoadScene(lastLevel, LoadSceneMode.Single);
@@ -34,18 +52,39 @@ public class LoadScene : MonoBehaviour
 
     public void SceneFromMenu()
     {
+        //Checking to see if first time in app
         if (pc.type == PlayerControl.PlayerType.EMPTY)
         {
             SceneManager.LoadScene("Intro", LoadSceneMode.Single);
         }
         else
         {
-            SceneManager.LoadScene("MainGame", LoadSceneMode.Single);
+            LoadingScreenLoad("MainGame");
         }
+    }
+
+    public void LoadingScreenLoad(string sceneName)
+    {
+        StartCoroutine(LoadingScreen(sceneName));
     }
 
     public void ExitApp()
     {
         Application.Quit();
+    }
+
+
+    private IEnumerator LoadingScreen(string sceneName)
+    {
+        //Used to display loading screen whilst scene loads in background
+        loadingObject.SetActive(true);
+        async = SceneManager.LoadSceneAsync(sceneName);
+
+        while(!async.isDone)
+        {
+            yield return null;
+        }
+
+
     }
 }

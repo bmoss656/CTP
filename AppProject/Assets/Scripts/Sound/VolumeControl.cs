@@ -64,9 +64,6 @@ public class VolumeControl : MonoBehaviour
 
         GameSettings data = new GameSettings();
 
-        Debug.Log(musicVol + " MUSic");
-        Debug.Log(soundVol + " soundav");
-
         data.musicVol = musicVol;
 
         data.soundVol = soundVol;
@@ -88,10 +85,8 @@ public class VolumeControl : MonoBehaviour
             GameSettings data = (GameSettings)bf.Deserialize(file);
             file.Close();
 
-            Debug.Log(data.musicVol + " Music");
             musicVol = data.musicVol;
 
-            Debug.Log(data.soundVol + " sound");
             soundVol = data.soundVol;
 
         }
